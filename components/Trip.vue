@@ -1,104 +1,71 @@
 <template>
 <div class="mb-8">
-    <v-row no-gutters>
-      <v-col cols="8 pr-5">
-        <v-text-field
-          label="What's your next adventure?"
-          placeholder="ex. Exploring Prehistoric at Utah"
-          filled
-          :value="data && data.name ? data.name : ''"
-        />
-      </v-col>
+  <v-row no-gutters>
+    <v-col cols="12">
+      <v-text-field
+        class="card-title"
+        solo
+        label="What's your next adventure?"
+        :value="data && data.name ? data.name : ''"
+      />
+      <v-text-field
+        solo
+        label="Where?"
+        :value="data && data.location ? data.location : ''"
+      />
 
-      <v-col cols="4">
-        <v-text-field
-          label="Where?"
-          placeholder="ex. Las Vegas, Hollywood, St. George, etc"
-          filled
-          :value="data && data.location ? data.location : ''"
-        />
-      </v-col>
-    </v-row>
-
-
-    <v-expansion-panels accordion>
-      <v-expansion-panel>
-        <v-expansion-panel-header>More</v-expansion-panel-header>
-        <v-expansion-panel-content>
-          <v-row no-gutters>
-            <v-col cols="12">
-              <v-textarea
-                auto-grow
-                filled
-                name="input-7-4"
-                label="What are the main awesome things to experience?"
-                :value="data && data.notes ? data.notes : ''"
-              >
-              </v-textarea>
-            </v-col>
-
-            <v-col cols="6" class="pr-3">
-              <v-text-field
-                label="When?"
-                placeholder="ex. this weekend, next month, June 29, 2020 (Friday)"
-                filled
-                :value="data && data.date_start ? data.date_start : ''"
-              />
-            </v-col>
-
-            <v-col cols="6" class="pl-3">
-              <v-text-field
-                label="Until"
-                placeholder="ex. July 04, 2020 (Sunday)"
-                filled
-                :value="data && data.date_end ? data.date_end : ''"
-              />
-            </v-col>
-          </v-row>
-
-        </v-expansion-panel-content>
-      </v-expansion-panel>
-
-
-      <v-expansion-panel>
-        <v-expansion-panel-header>Day time</v-expansion-panel-header>
-        <v-expansion-panel-content v-if="data && data.day_trips">
-          <TripDetailForm />
-
-          <TripDetail
-            v-for="(item, i) in data.day_trips" :key="item.id"
-            :data="item"
+      <v-row no-gutters>
+        <v-col cols="6" class="pr-3">
+          <v-text-field
+            label="When?"
+            solo
+            :value="data && data.date_start ? data.date_start : ''"
           />
-        </v-expansion-panel-content>
-        <v-expansion-panel-content v-else>
-          <TripDetailForm />
-        </v-expansion-panel-content>
-      </v-expansion-panel>
+        </v-col>
 
-
-      <v-expansion-panel>
-        <v-expansion-panel-header>Night time</v-expansion-panel-header>
-        <v-expansion-panel-content v-if="data && data.night_trips">
-          <TripDetailForm />
-
-          <TripDetail
-            v-for="(item, i) in data.night_trips" :key="item.id"
-            :data="item"
+        <v-col cols="6" class="pl-3">
+          <v-text-field
+            label="Until"
+            solo
+            :value="data && data.date_end ? data.date_end : ''"
           />
-        </v-expansion-panel-content>
-        <v-expansion-panel-content v-else>
-          <TripDetailForm />
-        </v-expansion-panel-content>
-      </v-expansion-panel>
-    </v-expansion-panels>
+        </v-col>
+      </v-row>
 
-    <v-btn v-if="data" color="primary" nuxt to="/inspire">
-      Update
-    </v-btn>
+      <v-textarea
+        auto-grow
+        solo
+        label="What are the main awesome things to experience?"
+        :value="data && data.notes ? data.notes : ''"
+      >
+      </v-textarea>
+    </v-col>
+  </v-row>
 
-    <v-btn v-else color="primary" nuxt to="/inspire">
-      Share
-    </v-btn>
+
+  <h5>Day time</h5>
+  <v-list v-if="data && data.day_trips">
+    <v-list-item v-for="(item, i) in data.day_trips" :key="item.id">
+      <TripDetail :data="item" />
+    </v-list-item>
+
+    <v-list-item><TripDetailForm /></v-list-item>
+  </v-list>
+
+
+  <h5>Night time</h5>
+  <v-list v-if="data && data.night_trips">
+    <v-list-item v-for="(item, i) in data.night_trips" :key="item.id">
+      <TripDetail :data="item" />
+    </v-list-item>
+
+    <v-list-item><TripDetailForm /></v-list-item>
+  </v-list>
+
+
+  <v-btn v-if="data" color="primary" nuxt to="/inspire">
+    Update
+  </v-btn>
 </div>
 </template>
 
@@ -118,5 +85,9 @@ export default {
 <style>
 .v-text-field__details {
   display: none;
+}
+
+.card-title {
+  font-size: 1.5em;
 }
 </style>
