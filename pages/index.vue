@@ -4,7 +4,7 @@
 
       <v-row>
         <TripForm class="col-12"
-          :triggerAddTrip="addTrip()"
+          @triggerAddTrip="addTrip"
         />
 
         <Trip class="col-12"
@@ -28,7 +28,7 @@ export default {
 
   data () {
     return {
-      tripDataStructure: {
+      tripData: {
         id: '',
         name: '',
         location: '',
@@ -78,7 +78,8 @@ export default {
 
   methods: {
     addTrip() {
-      this.trips.push(this.tripDataStructure)
+      console.log(this.$store.state)
+      this.trips.unshift(this.tripData)
     }
   }
 }

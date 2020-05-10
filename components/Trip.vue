@@ -54,7 +54,11 @@
       <TripDetail :data="item" />
     </v-list-item>
 
-    <v-list-item><TripDetailForm /></v-list-item>
+    <v-list-item>
+      <TripDetailForm
+        @triggerAddTripDetail="addTripDetail"
+      />
+    </v-list-item>
   </v-list>
 
 
@@ -65,7 +69,11 @@
       <TripDetail :data="item" />
     </v-list-item>
 
-    <v-list-item><TripDetailForm /></v-list-item>
+    <v-list-item>
+      <TripDetailForm
+        @triggerAddTripDetail="addTripDetail"
+      />
+    </v-list-item>
   </v-list>
 
 
@@ -85,6 +93,11 @@ export default {
     TripDetail,
     TripDetailForm
   },
+  methods: {
+    addTripDetail() {
+      alert('trip detail data')
+    }
+  }
 }
 </script>
 
