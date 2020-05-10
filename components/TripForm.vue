@@ -98,12 +98,8 @@
 
 
   <v-card-actions>
-    <v-btn v-if="data" color="primary" nuxt to="/inspire">
-      Update
-    </v-btn>
-
-    <v-btn v-else color="primary" nuxt to="/inspire">
-      Share
+    <v-btn color="primary" nuxt @click="addTrip">
+      +
     </v-btn>
   </v-card-actions>
 </v-card>
@@ -117,6 +113,11 @@ export default {
   components: {
     TripDetail
   },
+  methods: {
+    addTrip() {
+      alert('hello')
+    }
+  }
 }
 </script>
 
