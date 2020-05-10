@@ -9,7 +9,8 @@
   </v-col>
 
   <v-col cols="2">
-    <v-btn v-if="!data" color="primary" nuxt to="/inspire">+</v-btn>
+    <v-btn v-if="data" color="primary" nuxt to="/inspire">update</v-btn>
+    <v-btn v-else color="primary" nuxt to="/inspire">+</v-btn>
   </v-col>
 
   <v-col cols="10">

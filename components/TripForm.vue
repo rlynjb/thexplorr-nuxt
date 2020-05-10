@@ -1,5 +1,7 @@
 <template>
-<div class="mb-8">
+<v-card class="mb-8">
+  <v-card-text>
+
     <v-row no-gutters>
       <v-col cols="8 pr-5">
         <v-text-field
@@ -63,7 +65,7 @@
       <v-expansion-panel>
         <v-expansion-panel-header>Day time</v-expansion-panel-header>
         <v-expansion-panel-content v-if="data && data.day_trips">
-          <TripDetailForm />
+          <TripDetail />
 
           <TripDetail
             v-for="(item, i) in data.day_trips" :key="item.id"
@@ -71,7 +73,7 @@
           />
         </v-expansion-panel-content>
         <v-expansion-panel-content v-else>
-          <TripDetailForm />
+          <TripDetail />
         </v-expansion-panel-content>
       </v-expansion-panel>
 
@@ -79,7 +81,7 @@
       <v-expansion-panel>
         <v-expansion-panel-header>Night time</v-expansion-panel-header>
         <v-expansion-panel-content v-if="data && data.night_trips">
-          <TripDetailForm />
+          <TripDetail />
 
           <TripDetail
             v-for="(item, i) in data.night_trips" :key="item.id"
@@ -87,11 +89,15 @@
           />
         </v-expansion-panel-content>
         <v-expansion-panel-content v-else>
-          <TripDetailForm />
+          <TripDetail />
         </v-expansion-panel-content>
       </v-expansion-panel>
     </v-expansion-panels>
 
+  </v-card-text>
+
+
+  <v-card-actions>
     <v-btn v-if="data" color="primary" nuxt to="/inspire">
       Update
     </v-btn>
@@ -99,18 +105,17 @@
     <v-btn v-else color="primary" nuxt to="/inspire">
       Share
     </v-btn>
-</div>
+  </v-card-actions>
+</v-card>
 </template>
 
 <script>
 import TripDetail from '~/components/TripDetail.vue'
-import TripDetailForm from '~/components/TripDetailForm.vue'
 
 export default {
   props: ['data'],
   components: {
-    TripDetail,
-    TripDetailForm
+    TripDetail
   },
 }
 </script>

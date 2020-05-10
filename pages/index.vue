@@ -2,10 +2,13 @@
   <v-layout column justify-center align-center>
     <v-flex xs12 sm8 md6>
 
-      <Trip />
+      <v-row>
+        <TripForm class="col-12" />
 
-      <Trip v-for="(item, i) in trips" :key="item.id"
-        :data="item" />
+        <Trip class="col-12"
+          v-for="(item, i) in trips" :key="item.id"
+          :data="item" />
+      </v-row>
 
     </v-flex>
   </v-layout>
@@ -13,10 +16,12 @@
 
 <script>
 import Trip from '~/components/Trip.vue'
+import TripForm from '~/components/TripForm.vue'
 
 export default {
   components: {
-    Trip
+    Trip,
+    TripForm
   },
   data () {
     return {
