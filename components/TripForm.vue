@@ -65,7 +65,7 @@
       <v-expansion-panel>
         <v-expansion-panel-header>Day time</v-expansion-panel-header>
         <v-expansion-panel-content v-if="data && data.day_trips">
-          <TripDetail />
+          <TripDetailForm />
 
           <TripDetail
             v-for="(item, i) in data.day_trips" :key="item.id"
@@ -73,7 +73,7 @@
           />
         </v-expansion-panel-content>
         <v-expansion-panel-content v-else>
-          <TripDetail />
+          <TripDetailForm />
         </v-expansion-panel-content>
       </v-expansion-panel>
 
@@ -81,7 +81,7 @@
       <v-expansion-panel>
         <v-expansion-panel-header>Night time</v-expansion-panel-header>
         <v-expansion-panel-content v-if="data && data.night_trips">
-          <TripDetail />
+          <TripDetailForm />
 
           <TripDetail
             v-for="(item, i) in data.night_trips" :key="item.id"
@@ -89,7 +89,7 @@
           />
         </v-expansion-panel-content>
         <v-expansion-panel-content v-else>
-          <TripDetail />
+          <TripDetailForm />
         </v-expansion-panel-content>
       </v-expansion-panel>
     </v-expansion-panels>

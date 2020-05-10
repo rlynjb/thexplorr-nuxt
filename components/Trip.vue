@@ -1,14 +1,15 @@
 <template>
-<div class="mb-8">
+<div class="trip-card mb-8">
   <v-row no-gutters>
     <v-col cols="12">
       <v-text-field
-        class="card-title"
+        class="display-2"
         solo
         label="What's your next adventure?"
         :value="data && data.name ? data.name : ''"
       />
       <v-text-field
+        class="subtitle-1"
         solo
         label="Where?"
         :value="data && data.location ? data.location : ''"
@@ -17,6 +18,7 @@
       <v-row no-gutters>
         <v-col cols="6" class="pr-3">
           <v-text-field
+            class="subtitle-1"
             label="When?"
             solo
             :value="data && data.date_start ? data.date_start : ''"
@@ -25,6 +27,7 @@
 
         <v-col cols="6" class="pl-3">
           <v-text-field
+            class="subtitle-1"
             label="Until"
             solo
             :value="data && data.date_end ? data.date_end : ''"
@@ -33,7 +36,8 @@
       </v-row>
 
       <v-textarea
-        auto-grow
+        rows="1"
+        :auto-grow="true"
         solo
         label="What are the main awesome things to experience?"
         :value="data && data.notes ? data.notes : ''"
@@ -43,9 +47,11 @@
   </v-row>
 
 
-  <h5>Day time</h5>
+  <h5 class="text-uppercase mt-10 ml-3">Day time</h5>
   <v-list v-if="data && data.day_trips">
-    <v-list-item v-for="(item, i) in data.day_trips" :key="item.id">
+    <v-list-item
+      class="mb-5"
+      v-for="(item, i) in data.day_trips" :key="item.id">
       <TripDetail :data="item" />
     </v-list-item>
 
@@ -53,9 +59,10 @@
   </v-list>
 
 
-  <h5>Night time</h5>
+  <h5 class="text-uppercase mt-10 ml-3">Night time</h5>
   <v-list v-if="data && data.night_trips">
-    <v-list-item v-for="(item, i) in data.night_trips" :key="item.id">
+    <v-list-item class="mb-5"
+      v-for="(item, i) in data.night_trips" :key="item.id">
       <TripDetail :data="item" />
     </v-list-item>
 
@@ -83,11 +90,25 @@ export default {
 </script>
 
 <style>
-.v-text-field__details {
+.trip-card .v-list {
+  background: transparent;
+}
+.trip-card .v-text-field__details {
   display: none;
 }
-
-.card-title {
-  font-size: 1.5em;
+.trip-card .v-input__control {
+  min-height: fit-content !important;
 }
+.trip-card .v-input__control .v-input__slot {
+  background: transparent !important;
+  min-height: unset;
+  margin-bottom: 0;
+  box-shadow: none !important;
+}
+
+.trip-card .v-input input {
+  max-height: fit-content;
+  padding: 0;
+}
+
 </style>
