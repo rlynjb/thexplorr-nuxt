@@ -3,7 +3,9 @@
     <v-flex xs12 sm8 md6>
 
       <v-row>
-        <TripForm class="col-12" />
+        <TripForm class="col-12"
+          :triggerAddTrip="addTrip()"
+        />
 
         <Trip class="col-12"
           v-for="(item, i) in trips" :key="item.id"
@@ -23,8 +25,19 @@ export default {
     Trip,
     TripForm
   },
+
   data () {
     return {
+      tripDataStructure: {
+        id: '',
+        name: '',
+        location: '',
+        notes: '',
+        date_start: '',
+        date_end: '',
+        day_trips: [],
+        night_trips: []
+      },
       trips: [
         {
           id: '123asd',
@@ -60,6 +73,12 @@ export default {
           ]
         }
       ],
+    }
+  },
+
+  methods: {
+    addTrip() {
+      this.trips.push(this.tripDataStructure)
     }
   }
 }

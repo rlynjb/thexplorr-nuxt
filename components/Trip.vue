@@ -14,43 +14,42 @@
         label="Where?"
         :value="data && data.location ? data.location : ''"
       />
-
-      <v-row no-gutters>
-        <v-col cols="6" class="pr-3">
-          <v-text-field
-            class="subtitle-1"
-            label="When?"
-            solo
-            :value="data && data.date_start ? data.date_start : ''"
-          />
-        </v-col>
-
-        <v-col cols="6" class="pl-3">
-          <v-text-field
-            class="subtitle-1"
-            label="Until"
-            solo
-            :value="data && data.date_end ? data.date_end : ''"
-          />
-        </v-col>
-      </v-row>
-
-      <v-textarea
-        rows="1"
-        :auto-grow="true"
-        solo
-        label="What are the main awesome things to experience?"
-        :value="data && data.notes ? data.notes : ''"
-      >
-      </v-textarea>
     </v-col>
   </v-row>
 
+  <v-row no-gutters>
+    <v-col cols="auto" class="pr-3">
+      <v-text-field
+        class="subtitle-1"
+        label="When?"
+        solo
+        :value="data && data.date_start ? data.date_start : ''"
+      />
+    </v-col>
+
+    <v-col cols="auto" class="pl-3">
+      <v-text-field
+        class="subtitle-1"
+        label="Until"
+        solo
+        :value="data && data.date_end ? data.date_end : ''"
+      />
+    </v-col>
+  </v-row>
+
+  <v-textarea
+    rows="1"
+    :auto-grow="true"
+    solo
+    label="What are the main awesome things to experience?"
+    :value="data && data.notes ? data.notes : ''"
+  >
+  </v-textarea>
 
   <h5 class="text-uppercase mt-10 ml-3">Day time</h5>
   <v-list v-if="data && data.day_trips">
     <v-list-item
-      class="mb-5"
+      class="mb-5 tripDetalItem"
       v-for="(item, i) in data.day_trips" :key="item.id">
       <TripDetail :data="item" />
     </v-list-item>
@@ -61,7 +60,7 @@
 
   <h5 class="text-uppercase mt-10 ml-3">Night time</h5>
   <v-list v-if="data && data.night_trips">
-    <v-list-item class="mb-5"
+    <v-list-item class="mb-5 tripDetalItem"
       v-for="(item, i) in data.night_trips" :key="item.id">
       <TripDetail :data="item" />
     </v-list-item>
@@ -89,9 +88,13 @@ export default {
 }
 </script>
 
-<style>
+<style lang="scss">
 .trip-card .v-list {
   background: transparent;
+
+  .tripDetalItem {
+    border-left: 1px solid gray;
+  }
 }
 .trip-card .v-text-field__details {
   display: none;

@@ -22,7 +22,7 @@
       </v-col>
     </v-row>
 
-
+    <!--
     <v-expansion-panels accordion>
       <v-expansion-panel>
         <v-expansion-panel-header>More</v-expansion-panel-header>
@@ -93,7 +93,7 @@
         </v-expansion-panel-content>
       </v-expansion-panel>
     </v-expansion-panels>
-
+    -->
   </v-card-text>
 
 
@@ -115,7 +115,7 @@ export default {
   },
   methods: {
     addTrip() {
-      alert('hello')
+      this.$emit('triggerAddTrip')
     }
   }
 }

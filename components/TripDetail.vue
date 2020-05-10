@@ -1,18 +1,24 @@
 <template>
 <v-row no-gutters>
-  <v-col cols="12">
+  <v-col cols="10">
     <v-text-field class="title"
       label="Name"
       solo
       :value="data && data.name ? data.name : ''"
     />
+  </v-col>
 
+  <v-col cols="2">
     <v-text-field label="Price"
       solo
       :value="data && data.price ? data.price : ''"
     />
+  </v-col>
 
-    <v-text-field label="Where?"
+  <v-col cols="12">
+    <v-text-field
+      class="caption text-capitalize"
+      label="Where?"
       solo
       :value="data && data.location ? data.location : ''"
     />

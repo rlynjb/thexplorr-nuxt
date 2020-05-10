@@ -2,17 +2,17 @@
 <v-row no-gutters>
   <v-col cols="10">
     <v-text-field label="Name"
-      placeholder="Original Starbucks coffee shop"
+      placeholder="ex. Original Starbucks coffee shop"
       filled
       :value="data && data.name ? data.name : ''"
     />
   </v-col>
 
   <v-col cols="2">
-    <v-btn v-if="data" color="primary" nuxt to="/inspire">update</v-btn>
-    <v-btn v-else color="primary" nuxt to="/inspire">+</v-btn>
+    <v-btn color="primary" nuxt to="/inspire">+</v-btn>
   </v-col>
 
+  <!--
   <v-col cols="10">
     <v-expansion-panels accordion>
       <v-expansion-panel>
@@ -46,7 +46,7 @@
       </v-expansion-panel>
     </v-expansion-panels>
   </v-col>
-
+  -->
 </v-row>
 </template>
 

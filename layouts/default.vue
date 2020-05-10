@@ -121,3 +121,10 @@ export default {
   }
 }
 </script>
+
+<style lang="scss">
+#__nuxt .v-application .primary {
+  background-color: #00ACC1 !important;
+  border-color: #00ACC1 !important;
+}
+</style>
