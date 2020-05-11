@@ -164,11 +164,11 @@ export default {
     },
 
     updateTrip() {
-      this.$store.commit('updateTrip', data.id)
+      this.$store.commit('updateTrip', this.data.id)
     },
 
     deleteTrip() {
-      //
+      this.$emit('triggerDeleteTrip', this.data)
     },
   }
 }

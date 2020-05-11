@@ -10,7 +10,9 @@
         <v-col cols="12" v-if="trips">
           <Trip
             v-for="(item, i) in trips" :key="item.id"
-            :data="item" />
+            :data="item"
+            @triggerDeleteTrip="deleteTrip"
+          />
         </v-col>
       </v-row>
 
@@ -42,7 +44,11 @@ export default {
   methods: {
     addTrip(v) {
       this.trips = v
-    }
+    },
+
+    deleteTrip(v) {
+      // splice from trips
+    },
   }
 }
 </script>
