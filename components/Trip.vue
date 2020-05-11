@@ -1,29 +1,27 @@
 <template>
 <div class="trip-card mb-8">
-  <v-row no-gutters>
+  <v-row v-if="dataCopy" no-gutters>
     <v-col cols="12">
       <v-text-field
         class="display-2"
         solo
         label="What's your next adventure?"
-        :value="data && data.name ? data.name : ''"
+        v-model="dataCopy.name"
       />
       <v-text-field
         class="subtitle-1"
         solo
         label="Where?"
-        :value="data && data.location ? data.location : ''"
+        v-model="dataCopy.location"
       />
     </v-col>
-  </v-row>
 
-  <v-row no-gutters>
     <v-col cols="auto" class="pr-3">
       <v-text-field
         class="subtitle-1"
         label="When?"
         solo
-        :value="data && data.date_start ? data.date_start : ''"
+        v-model="dataCopy.date_start"
       />
     </v-col>
 
@@ -32,56 +30,59 @@
         class="subtitle-1"
         label="Until"
         solo
-        :value="data && data.date_end ? data.date_end : ''"
+        v-model="dataCopy.date_end"
       />
+    </v-col>
+
+    <v-col cols="12">
+      <v-textarea
+        rows="1"
+        :auto-grow="true"
+        solo
+        label="What are the main awesome things to experience?"
+        v-model="dataCopy.notes"
+      >
+      </v-textarea>
+
+
+      <h5 class="text-uppercase mt-10 ml-3">Day time</h5>
+      <v-list>
+        <v-list-item class="mb-5 tripDetalItem"
+          v-for="(item, i) in dataCopy.day_trips" :key="item.id">
+          <TripDetail :data="item" :tripID="item.id" />
+        </v-list-item>
+
+        <v-list-item>
+          <TripDetailForm time="day" :tripID="dataCopy.id"
+            @triggerAddTripDetail="addTripDetail"
+          />
+        </v-list-item>
+      </v-list>
+
+
+      <h5 class="text-uppercase mt-10 ml-3">Night time</h5>
+      <v-list>
+        <v-list-item class="mb-5 tripDetalItem"
+          v-for="(item, i) in dataCopy.night_trips" :key="item.id">
+          <TripDetail :data="item" :tripID="item.id" />
+        </v-list-item>
+
+        <v-list-item>
+          <TripDetailForm time="night" :tripID="dataCopy.id"
+            @triggerAddTripDetail="addTripDetail"
+          />
+        </v-list-item>
+      </v-list>
+    </v-col>
+
+    <v-col cols="12">
+      <v-btn :disabled="disabledUpdate"
+        color="primary" nuxt @click="updateTrip()">
+        Update
+      </v-btn>
     </v-col>
   </v-row>
 
-  <v-textarea
-    rows="1"
-    :auto-grow="true"
-    solo
-    label="What are the main awesome things to experience?"
-    :value="data && data.notes ? data.notes : ''"
-  >
-  </v-textarea>
-
-  <h5 class="text-uppercase mt-10 ml-3">Day time</h5>
-  <v-list v-if="data && data.day_trips">
-    <v-list-item
-      class="mb-5 tripDetalItem"
-      v-for="(item, i) in data.day_trips" :key="item.id">
-      <TripDetail :data="item" :tripID="item.id" />
-    </v-list-item>
-
-    <v-list-item>
-      <TripDetailForm
-        time="day" :tripID="data.id"
-        @triggerAddTripDetail="addTripDetail"
-      />
-    </v-list-item>
-  </v-list>
-
-
-  <h5 class="text-uppercase mt-10 ml-3">Night time</h5>
-  <v-list v-if="data && data.night_trips">
-    <v-list-item class="mb-5 tripDetalItem"
-      v-for="(item, i) in data.night_trips" :key="item.id">
-      <TripDetail :data="item" :tripID="item.id" />
-    </v-list-item>
-
-    <v-list-item>
-      <TripDetailForm
-        time="night" :tripID="data.id"
-        @triggerAddTripDetail="addTripDetail"
-      />
-    </v-list-item>
-  </v-list>
-
-
-  <v-btn v-if="data" color="primary" nuxt to="/inspire">
-    Update
-  </v-btn>
 </div>
 </template>
 
@@ -95,10 +96,69 @@ export default {
     TripDetail,
     TripDetailForm
   },
+
+  data () {
+    return {
+      dataCopy: null,
+      disabledUpdate: true,
+    }
+  },
+
+  mounted() {
+    // NOTE:
+    // created a copy to be used within component
+    // coz we dont wanna alter data from store
+    // and this is also to determine if when
+    // to activate Update btn
+
+    this.dataCopy = JSON.parse(JSON.stringify(this.data))
+  },
+
+  watch: {
+    data: {
+      handler (newval, oldval) {
+        // TODO: find a way to differentiate new and old data
+        // for TripDetail data
+
+        this.dataCopy = JSON.parse(JSON.stringify(this.data))
+      },
+      deep: true
+    },
+
+    dataCopy: {
+      handler (val, old) {
+        console.log(val, old)
+
+        if (!old) {
+          console.log('NO CHANGES')
+          this.disabledUpdate = true
+          return
+        }
+
+        // compare data here
+        // and set Update btn to either active or inactive
+        if (JSON.stringify(val) != JSON.stringify(this.data)) {
+          console.log('THERES CHANGES')
+          // update internally in state
+          this.disabledUpdate = false
+          return
+        }
+
+        console.log('NO CHANGES')
+        this.disabledUpdate = true
+      },
+      deep: true
+    }
+  },
+
   methods: {
     addTripDetail(v) {
       this.$store.commit('addTripDetail', v)
-    }
+    },
+
+    updateTrip() {
+      this.$store.commit('updateTrip', data.id)
+    },
   }
 }
 </script>
