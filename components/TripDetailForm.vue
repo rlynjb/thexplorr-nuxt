@@ -1,6 +1,6 @@
 <template>
 <v-row no-gutters>
-  <v-col cols="10">
+  <v-col cols="11">
     <v-text-field label="Name"
       placeholder="ex. Original Starbucks coffee shop"
       filled
@@ -8,8 +8,11 @@
     />
   </v-col>
 
-  <v-col cols="2">
+  <v-col cols="1">
+    <!--
     <v-btn color="primary" nuxt @click="addTripDetail">+</v-btn>
+    -->
+    <v-icon @click="addTripDetail">mdi-plus-thick</v-icon>
   </v-col>
 </v-row>
 </template>

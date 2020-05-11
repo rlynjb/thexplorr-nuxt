@@ -8,6 +8,8 @@
         label="What's your next adventure?"
         v-model="dataCopy.name"
       />
+
+      <v-icon class="float-left">mdi-map-marker</v-icon>
       <v-text-field
         class="subtitle-1"
         solo
@@ -17,6 +19,7 @@
     </v-col>
 
     <v-col cols="auto" class="pr-3">
+      <v-icon class="float-left">mdi-calendar-range</v-icon>
       <v-text-field
         class="subtitle-1"
         label="When?"
@@ -26,6 +29,7 @@
     </v-col>
 
     <v-col cols="auto" class="pl-3">
+      <v-icon class="float-left">mdi-calendar-range</v-icon>
       <v-text-field
         class="subtitle-1"
         label="Until"

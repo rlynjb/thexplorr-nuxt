@@ -2,7 +2,7 @@
 <v-card class="mb-8">
   <v-card-text>
     <v-row no-gutters>
-      <v-col cols="8 pr-5">
+      <v-col cols="11">
         <v-text-field
           label="What's your next adventure?"
           placeholder="ex. Exploring Prehistoric at Utah"
@@ -11,7 +11,21 @@
         />
       </v-col>
 
-      <v-col cols="4">
+      <v-col cols="1">
+        <v-icon v-if="!displayLocation" color="primary" @click="attachLocation">
+          mdi-map-marker-plus
+        </v-icon>
+        <v-icon v-else>mdi-map-marker</v-icon>
+
+        <!--
+        <v-icon>mdi-crosshairs-gps</v-icon>
+        <v-icon>mdi-crosshairs</v-icon>
+        -->
+      </v-col>
+
+      <v-col cols="12" v-if="displayLocation">
+        <v-icon class="float-right"
+          @click="displayLocation = false">mdi-close</v-icon>
         <v-text-field
           label="Where?"
           placeholder="ex. Las Vegas, Hollywood, St. George, etc"
@@ -25,7 +39,7 @@
 
   <v-card-actions>
     <v-btn color="primary" nuxt @click="addTrip">
-      +
+      Create
     </v-btn>
   </v-card-actions>
 </v-card>
@@ -37,6 +51,7 @@ import { v4 as uuidv4 } from 'uuid'
 export default {
   data () {
     return {
+      displayLocation: false,
       trip: {
         id: uuidv4(),
         name: '',
@@ -60,7 +75,11 @@ export default {
       // check if value has been saved
       //this.trip.name = ''
       //this.trip.location = ''
-    }
+    },
+
+    attachLocation() {
+      this.displayLocation = true
+    },
   }
 }
 </script>
