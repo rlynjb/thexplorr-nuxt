@@ -115,26 +115,8 @@ export default {
   },
 
   watch: {
-    data: {
-      handler (newval, oldval) {
-        // TODO: find a way to differentiate new and old data
-        // for TripDetail data
-
-        this.dataCopy = JSON.parse(JSON.stringify(this.data))
-      },
-      deep: true
-    },
-
     dataCopy: {
       handler (val, old) {
-        console.log(val, old)
-
-        if (!old) {
-          console.log('NO CHANGES')
-          this.disabledUpdate = true
-          return
-        }
-
         // compare data here
         // and set Update btn to either active or inactive
         if (JSON.stringify(val) != JSON.stringify(this.data)) {
@@ -153,7 +135,12 @@ export default {
 
   methods: {
     addTripDetail(v) {
-      this.$store.commit('addTripDetail', v)
+      if (v.time === 'day') {
+        this.dataCopy.day_trips.push(v)
+      }
+      if (v.time === 'night') {
+        this.dataCopy.night_trips.push(v)
+      }
     },
 
     updateTrip() {

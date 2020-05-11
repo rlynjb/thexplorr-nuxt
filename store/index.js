@@ -45,36 +45,22 @@ const createStore = () => {
         state.trips.unshift(obj)
       },
 
-      addTripDetail (state, obj) {
-        // find tripID from state.trips
-        // push obj to day_trips or night_trips array
-        let trip = state.trips.findIndex(v => {
-          return v.id === obj.tripID
-        })
+      updateTrip (state, obj) {
+        //
+      },
 
-        if (obj.time === 'day') {
-          state.trips[trip].day_trips.push(obj)
-        }
-        if (obj.time === 'night') {
-          state.trips[trip].night_trips.push(obj)
-        }
-      }
-    },
+      updateTripDetail (state, obj) {
+        //
+      },
 
-    updateTrip (state, obj) {
-      //
-    },
+      deleteTrip (state, obj) {
+        //
+      },
 
-    updateTripDetail (state, obj) {
-      //
-    },
+      deleteTripDetail (state, obj) {
+        //
+      },
 
-    deleteTrip (state, obj) {
-      //
-    },
-
-    deleteTripDetail (state, obj) {
-      //
     },
 
   })
