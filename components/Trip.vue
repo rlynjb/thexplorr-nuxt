@@ -49,7 +49,9 @@
       <v-list>
         <v-list-item class="mb-5 tripDetalItem"
           v-for="(item, i) in dataCopy.day_trips" :key="item.id">
-          <TripDetail :data="item" :tripID="item.id" />
+          <TripDetail :data="item" :tripID="item.id"
+            @triggerDeleteTripDetail="deleteTripDetail"
+          />
         </v-list-item>
 
         <v-list-item>
@@ -64,7 +66,9 @@
       <v-list>
         <v-list-item class="mb-5 tripDetalItem"
           v-for="(item, i) in dataCopy.night_trips" :key="item.id">
-          <TripDetail :data="item" :tripID="item.id" />
+          <TripDetail :data="item" :tripID="item.id"
+            @triggerDeleteTripDetail="deleteTripDetail"
+          />
         </v-list-item>
 
         <v-list-item>
@@ -79,6 +83,11 @@
       <v-btn :disabled="disabledUpdate"
         color="primary" nuxt @click="updateTrip()">
         Update
+      </v-btn>
+
+      <v-btn 
+        color="red" nuxt @click="deleteTrip()">
+        Delete
       </v-btn>
     </v-col>
   </v-row>
@@ -143,8 +152,23 @@ export default {
       }
     },
 
+    deleteTripDetail(v) {
+      if (v.time === 'day') {
+        let i = this.dataCopy.day_trips.findIndex(val => val.id === v.id)
+        this.dataCopy.day_trips.splice(i, 1)
+      }
+      if (v.time === 'night') {
+        let i = this.dataCopy.night_trips.findIndex(val => val.id === v.id)
+        this.dataCopy.night_trips.splice(i, 1)
+      }
+    },
+
     updateTrip() {
       this.$store.commit('updateTrip', data.id)
+    },
+
+    deleteTrip() {
+      //
     },
   }
 }
