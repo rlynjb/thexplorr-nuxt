@@ -4,7 +4,7 @@
     <v-text-field label="Name"
       placeholder="ex. Original Starbucks coffee shop"
       filled
-      :value="data && data.name ? data.name : ''"
+      v-model="tripDetail.name"
     />
   </v-col>
 
@@ -15,11 +15,34 @@
 </template>
 
 <script>
+import { v4 as uuidv4 } from 'uuid'
+
 export default {
-  props: ['data'],
+  props: ['time', 'tripID'],
+  data () {
+    return {
+      tripDetail: {
+        id: uuidv4(),
+        tripID: '',
+        time: '',
+        name: '',
+        location: '',
+        notes: '',
+        price: 0
+      }
+    }
+  },
   methods: {
     addTripDetail() {
-      this.$emit('triggerAddTripDetail')
+      if (this.tripDetail.name === '') return
+
+      this.tripDetail.time = this.time
+      this.tripDetail.tripID = this.tripID
+      this.$emit('triggerAddTripDetail', this.tripDetail)
+
+      // NOTE: before removing content
+      // check if value has been saved
+      //this.tripDetail.name = ''
     }
   }
 }

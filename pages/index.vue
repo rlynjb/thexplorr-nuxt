@@ -7,9 +7,11 @@
           @triggerAddTrip="addTrip"
         />
 
-        <Trip class="col-12"
-          v-for="(item, i) in trips" :key="item.id"
-          :data="item" />
+        <v-col cols="12" v-if="trips">
+          <Trip
+            v-for="(item, i) in trips" :key="item.id"
+            :data="item" />
+        </v-col>
       </v-row>
 
     </v-flex>
@@ -26,60 +28,20 @@ export default {
     TripForm
   },
 
-  data () {
-    return {
-      tripData: {
-        id: '',
-        name: '',
-        location: '',
-        notes: '',
-        date_start: '',
-        date_end: '',
-        day_trips: [],
-        night_trips: []
+  computed: {
+    trips: {
+      get() {
+        return this.$store.state.trips
       },
-      trips: [
-        {
-          id: '123asd',
-          name: 'Gay Culture in Sunset Blvd',
-          location: 'Sunset Blvd, Ca',
-          notes: 'i wanna see the new hip town',
-          date_start: '04-11-2020',
-          date_end: '04-20-2020',
-          day_trips: [
-            {
-              id: 'hello123lkjahdf',
-              name: 'Setting of the L Word',
-              location: '8555 w 8th st. sunset blvd, Ca, 89123, US',
-              price: 2,
-              notes: 'asesome possum stuff'
-            },
-            {
-              id: 'hello123lkjahdf',
-              name: 'Setting of the L Word',
-              location: '8555 w 8th st. sunset blvd, Ca, 89123, US',
-              price: 2,
-              notes: 'asesome possum stuff'
-            }
-          ],
-          night_trips: [
-            {
-              id: 'hello123lkjahdf',
-              name: 'Club cafe',
-              location: '8555 w 8th st. sunset blvd, Ca, 89123, US',
-              price: 2,
-              notes: 'asesome possum stuff'
-            }
-          ]
-        }
-      ],
+      set(v) {
+        this.$store.commit('addTrip', v)
+      }
     }
   },
 
   methods: {
-    addTrip() {
-      console.log(this.$store.state)
-      this.trips.unshift(this.tripData)
+    addTrip(v) {
+      this.trips = v
     }
   }
 }

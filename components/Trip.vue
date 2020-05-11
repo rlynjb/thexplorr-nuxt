@@ -51,11 +51,12 @@
     <v-list-item
       class="mb-5 tripDetalItem"
       v-for="(item, i) in data.day_trips" :key="item.id">
-      <TripDetail :data="item" />
+      <TripDetail :data="item" :tripID="item.id" />
     </v-list-item>
 
     <v-list-item>
       <TripDetailForm
+        time="day" :tripID="data.id"
         @triggerAddTripDetail="addTripDetail"
       />
     </v-list-item>
@@ -66,11 +67,12 @@
   <v-list v-if="data && data.night_trips">
     <v-list-item class="mb-5 tripDetalItem"
       v-for="(item, i) in data.night_trips" :key="item.id">
-      <TripDetail :data="item" />
+      <TripDetail :data="item" :tripID="item.id" />
     </v-list-item>
 
     <v-list-item>
       <TripDetailForm
+        time="night" :tripID="data.id"
         @triggerAddTripDetail="addTripDetail"
       />
     </v-list-item>
@@ -94,8 +96,8 @@ export default {
     TripDetailForm
   },
   methods: {
-    addTripDetail() {
-      alert('trip detail data')
+    addTripDetail(v) {
+      this.$store.commit('addTripDetail', v)
     }
   }
 }
