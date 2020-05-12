@@ -17,14 +17,16 @@ const createStore = () => {
               name: 'Setting of the L Word',
               location: '8555 w 8th st. sunset blvd, Ca, 89123, US',
               price: 2,
-              notes: 'asesome possum stuff'
+              notes: 'asesome possum stuff',
+              time: 'day'
             },
             {
               id: 'hello123lkjahdf',
               name: 'Setting of the L Word',
               location: '8555 w 8th st. sunset blvd, Ca, 89123, US',
               price: 2,
-              notes: 'asesome possum stuff'
+              notes: 'asesome possum stuff',
+              time: 'day'
             }
           ],
           night_trips: [
@@ -33,7 +35,8 @@ const createStore = () => {
               name: 'Club cafe',
               location: '8555 w 8th st. sunset blvd, Ca, 89123, US',
               price: 2,
-              notes: 'asesome possum stuff'
+              notes: 'asesome possum stuff',
+              time: 'night'
             }
           ]
         }
@@ -49,18 +52,9 @@ const createStore = () => {
         //
       },
 
-      updateTripDetail (state, obj) {
-        //
-      },
-
       deleteTrip (state, obj) {
         //
       },
-
-      deleteTripDetail (state, obj) {
-        //
-      },
-
     },
 
   })

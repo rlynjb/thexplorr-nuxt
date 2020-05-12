@@ -1,18 +1,18 @@
 <template>
-<v-row no-gutters>
+<v-row no-gutters class="grey darken-4">
   <v-col cols="11">
-    <v-text-field label="Name"
-      placeholder="ex. Original Starbucks coffee shop"
-      filled
+    <v-text-field class="title pa-3" label="Add something fun to do"
+      solo
       v-model="tripDetail.name"
     />
   </v-col>
 
-  <v-col cols="1">
-    <!--
-    <v-btn color="primary" nuxt @click="addTripDetail">+</v-btn>
-    -->
-    <v-icon @click="addTripDetail">mdi-plus-thick</v-icon>
+  <v-col cols="1" class="text-center">
+    <v-icon color="primary" large
+      class="pt-2"
+      @click="addTripDetail">
+      mdi-plus-thick
+    </v-icon>
   </v-col>
 </v-row>
 </template>

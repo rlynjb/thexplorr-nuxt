@@ -9,7 +9,11 @@
         v-model="dataCopy.name"
       />
 
-      <v-icon class="float-left">mdi-map-marker</v-icon>
+      <v-icon class="float-left"
+        color="grey">
+        mdi-map-marker
+      </v-icon>
+
       <v-text-field
         class="subtitle-1"
         solo
@@ -19,7 +23,9 @@
     </v-col>
 
     <v-col cols="auto" class="pr-3">
-      <v-icon class="float-left">mdi-calendar-range</v-icon>
+      <v-icon class="float-left" color="grey">
+        mdi-calendar-range
+      </v-icon>
       <v-text-field
         class="subtitle-1"
         label="When?"
@@ -29,7 +35,9 @@
     </v-col>
 
     <v-col cols="auto" class="pl-3">
-      <v-icon class="float-left">mdi-calendar-range</v-icon>
+      <v-icon class="float-left" color="grey">
+        mdi-calendar-range
+      </v-icon>
       <v-text-field
         class="subtitle-1"
         label="Until"
@@ -83,13 +91,13 @@
       </v-list>
     </v-col>
 
-    <v-col cols="12">
+    <v-col cols="12" class="mt-10 text-right">
       <v-btn :disabled="disabledUpdate"
         color="primary" nuxt @click="updateTrip()">
         Update
       </v-btn>
 
-      <v-btn 
+      <v-btn
         color="red" nuxt @click="deleteTrip()">
         Delete
       </v-btn>
@@ -133,13 +141,11 @@ export default {
         // compare data here
         // and set Update btn to either active or inactive
         if (JSON.stringify(val) != JSON.stringify(this.data)) {
-          console.log('THERES CHANGES')
           // update internally in state
           this.disabledUpdate = false
           return
         }
 
-        console.log('NO CHANGES')
         this.disabledUpdate = true
       },
       deep: true
@@ -148,23 +154,34 @@ export default {
 
   methods: {
     addTripDetail(v) {
-      if (v.time === 'day') {
-        this.dataCopy.day_trips.push(v)
-      }
-      if (v.time === 'night') {
-        this.dataCopy.night_trips.push(v)
+      switch (v.time) {
+        case 'day':
+          this.dataCopy.day_trips.push(v)
+          break;
+        case 'night':
+          this.dataCopy.night_trips.push(v)
+          break;
+        default:
+          //
       }
     },
 
     deleteTripDetail(v) {
-      if (v.time === 'day') {
-        let i = this.dataCopy.day_trips.findIndex(val => val.id === v.id)
-        this.dataCopy.day_trips.splice(i, 1)
+      let i = null
+      switch (v.time) {
+        case 'day':
+          i = this.dataCopy.day_trips.findIndex(val => val.id === v.id)
+          this.dataCopy.day_trips.splice(i, 1)
+          break;
+        case 'night':
+          i = this.dataCopy.night_trips.findIndex(val => val.id === v.id)
+          this.dataCopy.night_trips.splice(i, 1)
+          break;
+        default:
+          //
       }
-      if (v.time === 'night') {
-        let i = this.dataCopy.night_trips.findIndex(val => val.id === v.id)
-        this.dataCopy.night_trips.splice(i, 1)
-      }
+
+      i = null
     },
 
     updateTrip() {

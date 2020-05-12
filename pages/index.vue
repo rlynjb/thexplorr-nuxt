@@ -8,7 +8,7 @@
         />
 
         <v-col cols="12" v-if="trips">
-          <Trip
+          <Trip class="mb-10"
             v-for="(item, i) in trips" :key="item.id"
             :data="item"
             @triggerDeleteTrip="deleteTrip"
