@@ -72,6 +72,10 @@ export default {
     }
   },
 
+  mounted() {
+    console.log('testing vue2leaflet: ', this.$leaflet)
+  },
+
   methods: {
     addTrip() {
       if (this.trip.name === '') return
