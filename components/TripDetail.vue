@@ -11,21 +11,14 @@
     <v-icon color="primary" size="1.2em">
       mdi-currency-usd
     </v-icon>
-    <!--
-    <v-text-field label="Price"
-      solo v-model="data.price"
-    />
-    -->
   </v-col>
 
   <v-col cols="12">
     <v-icon class="float-left" color="grey" size="0.9em">
       mdi-map-marker
     </v-icon>
-    <v-text-field class="caption text-capitalize"
-      label="Where?" solo
-      v-model="data.location"
-    />
+
+    <location-search @triggerSetLocation="setLocation" />
   </v-col>
 
   <v-col cols="11" class="pl-3">
@@ -39,18 +32,26 @@
       @click="deleteTripDetail()">
       mdi-delete
     </v-icon>
-
-    <!--
-    <v-btn color="red" nuxt @click="deleteTripDetail()">X</v-btn>
-    -->
   </v-col>
 </v-row>
 </template>
 
 <script>
+import LocationSearch from '~/components/LocationSearch'
+
 export default {
   props: ['data'],
+
+  components: {
+    LocationSearch
+  },
+
   methods: {
+    setLocation(v) {
+      this.data.location = v.label
+      this.data.__embedded.location = v
+    },
+
     deleteTripDetail() {
       this.$emit('triggerDeleteTripDetail', this.data)
     }

@@ -14,12 +14,7 @@
         mdi-map-marker
       </v-icon>
 
-      <v-text-field
-        class="subtitle-1"
-        solo
-        label="Where?"
-        v-model="dataCopy.location"
-      />
+      <location-search @triggerSetLocation="setLocation" />
     </v-col>
 
     <v-col cols="auto" class="pr-3">
@@ -110,12 +105,14 @@
 <script>
 import TripDetail from '~/components/TripDetail.vue'
 import TripDetailForm from '~/components/TripDetailForm.vue'
+import LocationSearch from '~/components/LocationSearch'
 
 export default {
   props: ['data'],
   components: {
     TripDetail,
-    TripDetailForm
+    TripDetailForm,
+    LocationSearch
   },
 
   data () {
@@ -153,6 +150,11 @@ export default {
   },
 
   methods: {
+    setLocation(v) {
+      this.dataCopy.location = v.label
+      this.dataCopy.__embedded.location = v
+    },
+
     addTripDetail(v) {
       switch (v.time) {
         case 'day':

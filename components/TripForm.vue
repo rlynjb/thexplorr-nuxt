@@ -27,20 +27,13 @@
       -->
     </v-col>
 
-    <v-col cols="12" v-if="displayLocation">
+    <v-col cols="11" v-if="displayLocation">
       <v-icon class="float-right"
         @click="displayLocation = false">
         mdi-close
       </v-icon>
 
-      <v-text-field
-        label="Where?"
-        placeholder="ex. Las Vegas, Hollywood, St. George, etc"
-        filled
-        v-model="trip.location"
-      />
-
-      <v-geosearch :options="geosearchOptions"></v-geosearch>
+      <location-search @triggerSetLocation="setLocation" />
     </v-col>
 
     <v-col cols="12" class="mt-5 text-right">
@@ -56,8 +49,13 @@
 
 <script>
 import { v4 as uuidv4 } from 'uuid'
+import LocationSearch from '~/components/LocationSearch'
 
 export default {
+  components: {
+    LocationSearch
+  },
+
   data () {
     return {
       displayLocation: false,
@@ -69,19 +67,19 @@ export default {
         date_start: '',
         date_end: '',
         day_trips: [],
-        night_trips: []
+        night_trips: [],
+        __embedded: {}
       },
     }
   },
 
-  async mounted() {
-    const provider = new this.$leaflet.OpenStreetMapProvider()
-    const results = await provider.search({ query: 'Las Vegas' })
-
-    console.log(results)
-  },
-
   methods: {
+    setLocation(v) {
+      this.trip.location = v.label
+      this.locationResults = null
+      this.trip.__embedded.location = v
+    },
+
     addTrip() {
       if (this.trip.name === '') return
 
