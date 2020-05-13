@@ -16,8 +16,7 @@
     "express": "^4.16.4",
     "leaflet-geosearch": "^2.7.0",
     "nuxt": "^2.0.0",
-    "uuid": "^8.0.0",
-    "vue2-leaflet-geosearch": "^1.0.6"
+    "uuid": "^8.0.0"
   },
   "devDependencies": {
     "@nuxtjs/vuetify": "^1.0.0",

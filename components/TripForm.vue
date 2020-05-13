@@ -39,6 +39,8 @@
         filled
         v-model="trip.location"
       />
+
+      <v-geosearch :options="geosearchOptions"></v-geosearch>
     </v-col>
 
     <v-col cols="12" class="mt-5 text-right">
@@ -68,12 +70,15 @@ export default {
         date_end: '',
         day_trips: [],
         night_trips: []
-      }
+      },
     }
   },
 
-  mounted() {
-    console.log('testing vue2leaflet: ', this.$leaflet)
+  async mounted() {
+    const provider = new this.$leaflet.OpenStreetMapProvider()
+    const results = await provider.search({ query: 'Las Vegas' })
+
+    console.log(results)
   },
 
   methods: {
