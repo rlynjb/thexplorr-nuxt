@@ -17,28 +17,32 @@
       <location-search @triggerSetLocation="setLocation" />
     </v-col>
 
-    <v-col cols="auto" class="pr-3">
-      <v-icon class="float-left" color="grey">
-        mdi-calendar-range
-      </v-icon>
-      <v-text-field
-        class="subtitle-1"
-        label="When?"
-        solo
-        v-model="dataCopy.date_start"
-      />
-    </v-col>
-
-    <v-col cols="auto" class="pl-3">
-      <v-icon class="float-left" color="grey">
-        mdi-calendar-range
-      </v-icon>
-      <v-text-field
-        class="subtitle-1"
-        label="Until"
-        solo
-        v-model="dataCopy.date_end"
-      />
+    <v-col cols="12">
+      <v-menu
+        ref="menu"
+        v-model="menu2"
+        :close-on-content-click="false"
+        :return-value.sync="dateTest"
+        transition="scale-transition"
+        offset-y
+        min-width="290px"
+      >
+        <template v-slot:activator="{ on }">
+          <v-text-field
+            v-model="dateTest"
+            prepend-icon="mdi-calendar-range"
+            readonly
+            solo
+            v-on="on"
+            label="When?"
+          ></v-text-field>
+        </template>
+        <v-date-picker v-model="dateTest" range no-title scrollable>
+          <v-spacer></v-spacer>
+          <v-btn text color="primary" @click="menu2 = false">Cancel</v-btn>
+          <v-btn text color="primary" @click="$refs.menu.save(dateTest)">OK</v-btn>
+        </v-date-picker>
+      </v-menu>
     </v-col>
 
     <v-col cols="12">
@@ -50,7 +54,6 @@
         v-model="dataCopy.notes"
       >
       </v-textarea>
-
 
       <h5 class="text-uppercase mt-10 ml-3">Day time</h5>
       <v-list>
@@ -117,8 +120,10 @@ export default {
 
   data () {
     return {
+      menu2: false,
       dataCopy: null,
       disabledUpdate: true,
+      dateTest: [],
     }
   },
 
@@ -133,6 +138,9 @@ export default {
   },
 
   watch: {
+    dateTest(v) {
+      console.log('HELLO', v)
+    },
     dataCopy: {
       handler (val, old) {
         // compare data here
