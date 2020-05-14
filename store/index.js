@@ -6,20 +6,11 @@ const createStore = () => {
       trips: [
         {
           id: '123asd',
-          name: 'Gay Culture in Sunset Blvd',
+          name: 'LGBTQ Culture in Sunset Blvd',
           location: 'Sunset Blvd, Ca',
           notes: 'i wanna see the new hip town',
-          date_start: '04-11-2020',
-          date_end: '04-20-2020',
+          date: [],
           day_trips: [
-            {
-              id: 'hello123lkjahdf',
-              name: 'Setting of the L Word',
-              location: '8555 w 8th st. sunset blvd, Ca, 89123, US',
-              price: 2,
-              notes: 'asesome possum stuff',
-              time: 'day'
-            },
             {
               id: 'hello123lkjahdf',
               name: 'Setting of the L Word',

@@ -18,31 +18,7 @@
     </v-col>
 
     <v-col cols="12">
-      <v-menu
-        ref="menu"
-        v-model="menu2"
-        :close-on-content-click="false"
-        :return-value.sync="dateTest"
-        transition="scale-transition"
-        offset-y
-        min-width="290px"
-      >
-        <template v-slot:activator="{ on }">
-          <v-text-field
-            v-model="dateTest"
-            prepend-icon="mdi-calendar-range"
-            readonly
-            solo
-            v-on="on"
-            label="When?"
-          ></v-text-field>
-        </template>
-        <v-date-picker v-model="dateTest" range no-title scrollable>
-          <v-spacer></v-spacer>
-          <v-btn text color="primary" @click="menu2 = false">Cancel</v-btn>
-          <v-btn text color="primary" @click="$refs.menu.save(dateTest)">OK</v-btn>
-        </v-date-picker>
-      </v-menu>
+      <date-range-picker @triggerSetDate="setDate" />
     </v-col>
 
     <v-col cols="12">
@@ -109,38 +85,29 @@
 import TripDetail from '~/components/TripDetail.vue'
 import TripDetailForm from '~/components/TripDetailForm.vue'
 import LocationSearch from '~/components/LocationSearch'
+import DateRangePicker from '~/components/DateRangePicker'
 
 export default {
   props: ['data'],
   components: {
     TripDetail,
     TripDetailForm,
-    LocationSearch
+    LocationSearch,
+    DateRangePicker,
   },
 
   data () {
     return {
-      menu2: false,
       dataCopy: null,
       disabledUpdate: true,
-      dateTest: [],
     }
   },
 
   mounted() {
-    // NOTE:
-    // created a copy to be used within component
-    // coz we dont wanna alter data from store
-    // and this is also to determine if when
-    // to activate Update btn
-
     this.dataCopy = JSON.parse(JSON.stringify(this.data))
   },
 
   watch: {
-    dateTest(v) {
-      console.log('HELLO', v)
-    },
     dataCopy: {
       handler (val, old) {
         // compare data here
@@ -161,6 +128,10 @@ export default {
     setLocation(v) {
       this.dataCopy.location = v.label
       this.dataCopy.__embedded.location = v
+    },
+
+    setDate(v) {
+      this.dataCopy.date = v
     },
 
     addTripDetail(v) {
