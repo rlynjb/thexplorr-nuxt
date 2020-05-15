@@ -31,7 +31,8 @@ export default {
         name: '',
         location: '',
         notes: '',
-        price: 0
+        price: 0,
+        __embedded: {},
       }
     }
   },

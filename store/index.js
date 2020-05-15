@@ -17,7 +17,8 @@ const createStore = () => {
               location: '8555 w 8th st. sunset blvd, Ca, 89123, US',
               price: 2,
               notes: 'asesome possum stuff',
-              time: 'day'
+              time: 'day',
+              __embedded: {},
             }
           ],
           night_trips: [
@@ -27,7 +28,8 @@ const createStore = () => {
               location: '8555 w 8th st. sunset blvd, Ca, 89123, US',
               price: 2,
               notes: 'asesome possum stuff',
-              time: 'night'
+              time: 'night',
+              __embedded: {},
             }
           ],
           __embedded: {},
