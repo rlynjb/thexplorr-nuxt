@@ -1,17 +1,25 @@
 <template>
 <div class="full-width">
-  <v-text-field
-    placeholder="Where?"
-    solo
-    v-model="location"
-    @input="getLocationResults"
-  />
+  <v-menu offset-y>
+    <template v-slot:activator="{ on }">
+      <v-text-field
+        placeholder="Where?"
+        solo
+        v-model="location"
+        @input="getLocationResults"
+        v-on="on"
+      />
+    </template>
 
-  <v-list>
-    <v-list-item v-for="(item, i) in locationResults" :key="item.raw.place_id">
-      <v-btn @click="setLocation(item)">{{ item.label }}</v-btn>
-    </v-list-item>
-  </v-list>
+    <v-list class="pa-0">
+      <v-list-item
+        v-for="(item, i) in locationResults" :key="item.raw.place_id">
+        <v-btn depressed @click="setLocation(item)">
+          {{ item.label }}
+        </v-btn>
+      </v-list-item>
+    </v-list>
+  </v-menu>
 </div>
 </template>
 
@@ -26,8 +34,9 @@ export default {
 
   methods: {
     async getLocationResults(val) {
-      const provider = new this.$leaflet.OpenStreetMapProvider()
+      this.locationResults = null
 
+      const provider = new this.$leaflet.OpenStreetMapProvider()
       const results = await provider.search({
         query: val
       })
@@ -36,8 +45,8 @@ export default {
     },
 
     setLocation(v) {
+      this.location = v.label
       this.$emit('triggerSetLocation', v)
-      this.locationResults = null
     },
   }
 }

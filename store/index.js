@@ -29,7 +29,8 @@ const createStore = () => {
               notes: 'asesome possum stuff',
               time: 'night'
             }
-          ]
+          ],
+          __embedded: {},
         }
       ]
     }),
