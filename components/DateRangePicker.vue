@@ -13,7 +13,7 @@
     </v-icon>
 
     <v-text-field
-      v-model="date"
+      v-model="formatDate"
       readonly
       solo
       v-on="on"
@@ -31,11 +31,24 @@
 </template>
 
 <script>
+import moment from 'moment'
 export default {
   data () {
     return {
       menu: false,
       date: [],
+    }
+  },
+
+  computed: {
+    formatDate() {
+      if (this.date.length === 1) {
+        return moment(this.date[0]).format('dddd, MMMM Do YYYY')
+      }
+
+      if (this.date.length === 2) {
+        return moment(this.date[0]).format('dddd, MMMM Do YYYY') + ' - ' + moment(this.date[1]).format('dddd, MMMM Do YYYY')
+      }
     }
   },
 
