@@ -8,9 +8,7 @@
   </v-col>
 
   <v-col cols="2" class="text-right">
-    <v-icon color="primary" size="1.2em">
-      mdi-currency-usd
-    </v-icon>
+    <price-picker />
   </v-col>
 
   <v-col cols="12">
@@ -38,12 +36,14 @@
 
 <script>
 import LocationSearch from '~/components/LocationSearch'
+import PricePicker from '~/components/PricePicker'
 
 export default {
   props: ['data'],
 
   components: {
-    LocationSearch
+    LocationSearch,
+    PricePicker
   },
 
   methods: {
