@@ -13,6 +13,7 @@
     </v-icon>
 
     <v-text-field
+      class="hidden-date-field"
       v-model="formatDate"
       readonly
       solo
@@ -31,8 +32,10 @@
 </template>
 
 <script>
+import moment from 'moment';
 
 export default {
+  props: ['val'],
   data () {
     return {
       menu: false,
@@ -40,22 +43,33 @@ export default {
     }
   },
 
-  computed: {
-    formatDate() {
-      if (this.date.length === 1) {
-        return this.$moment.core(this.date[0]).format('dddd, MMMM Do YYYY')
-      }
-
-      if (this.date.length === 2) {
-        return this.$moment.core(this.date[0]).format('dddd, MMMM Do YYYY') + ' - ' + moment(this.date[1]).format('dddd, MMMM Do YYYY')
-      }
+  mounted() {
+    if (this.val != '' || this.val != null) {
+      this.val = this.date;
     }
   },
 
   watch: {
     date(v) {
       if (v.length === 2) {
-        this.$emit('triggerSetDate', v)
+        this.$emit('triggerSetDate', v);
+      }
+    }
+  },
+
+  computed: {
+    formatDate() {
+      if (this.date.length === 0) {
+        return ''
+      }
+
+      if (this.date.length === 1) {
+        return moment(this.date[0]).format('dddd, MMMM Do YYYY')
+      }
+
+      if (this.date.length === 2) {
+        return moment(this.date[0]).format('dddd, MMMM Do YYYY')
+          + ' to ' + moment(this.date[1]).format('dddd, MMMM Do YYYY')
       }
     }
   },

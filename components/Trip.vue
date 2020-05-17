@@ -18,7 +18,7 @@
     </v-col>
 
     <v-col cols="12">
-      <date-range-picker @triggerSetDate="setDate" />
+      <date-range-picker :val="dataCopy.date" @triggerSetDate="setDate" />
     </v-col>
 
     <v-col cols="12">
@@ -110,6 +110,7 @@ export default {
   watch: {
     dataCopy: {
       handler (val, old) {
+        console.log('changes detected? ',val)
         // compare data here
         // and set Update btn to either active or inactive
         if (JSON.stringify(val) != JSON.stringify(this.data)) {
@@ -121,7 +122,7 @@ export default {
         this.disabledUpdate = true
       },
       deep: true
-    }
+    },
   },
 
   methods: {
