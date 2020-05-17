@@ -166,7 +166,20 @@ export default {
     },
 
     updateTrip() {
-      this.$store.commit('updateTrip', this.data.id)
+      // update internal state
+      //this.$store.commit('updateTrip', this.data.id)
+
+      // update firebase
+      this.$firebase.database
+        .ref('trips/' + this.dataCopy.id)
+        .set(this.dataCopy, (err) => {
+          if (err) {
+            console.log('Failed to update');
+          } else {
+            console.log('Success')
+            this.disabledUpdate = true
+          }
+        })
     },
 
     deleteTrip() {

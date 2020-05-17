@@ -38,6 +38,9 @@ const createStore = () => {
     }),
 
     mutations: {
+      addTrips(state, arr) {
+        state.trips = arr
+      },
       addTrip (state, obj) {
         state.trips.unshift(obj)
       },

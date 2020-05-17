@@ -64,8 +64,7 @@ export default {
         name: '',
         location: '',
         notes: '',
-        date_start: '',
-        date_end: '',
+        date: [],
         day_trips: [],
         night_trips: [],
         __embedded: {}
@@ -80,15 +79,23 @@ export default {
       this.trip.__embedded.location = v
     },
 
-    addTrip() {
+    async addTrip() {
       if (this.trip.name === '') return
 
       this.$emit('triggerAddTrip', this.trip)
 
-      // NOTE: before removing content
-      // check if value has been saved
-      //this.trip.name = ''
-      //this.trip.location = ''
+      // create trip
+      let res = await this.$firebase.database
+        .ref('trips/' + uuidv4())
+        .set(this.trip, (err) => {
+          if (err) {
+            console.log('Write ERROR: ', err)
+          } else {
+            console.log('Success!')
+            this.trip.name = ''
+            this.trip.location = ''
+          }
+        })
     },
 
     attachLocation() {

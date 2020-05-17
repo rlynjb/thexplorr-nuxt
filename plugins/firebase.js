@@ -2,6 +2,7 @@ import Vue from 'vue';
 import * as firebase from 'firebase/app';
 
 import 'firebase/auth';
+import 'firebase/database';
 
 
 const firebaseConfig = {
@@ -17,7 +18,7 @@ const firebaseConfig = {
 
 firebase.initializeApp(firebaseConfig)
 
-
-Vue.prototype.$leaflet = {
+Vue.prototype.$firebase = {
   core: firebase,
+  database: firebase.database(),
 };

@@ -30,20 +30,36 @@ export default {
     TripForm
   },
 
+  mounted() {
+    //
+    let getTrips = this.$firebase.database.ref('trips/');
+    getTrips.on('value', (snapshot) => {
+      if (snapshot.val()) {
+        // convert object to an array
+        let data = snapshot.val()
+        let newArr = Object.keys(data).map(key => {
+          return data[key];
+        })
+
+        this.trips = newArr
+      }
+    })
+  },
+
   computed: {
     trips: {
       get() {
         return this.$store.state.trips
       },
       set(v) {
-        this.$store.commit('addTrip', v)
+        this.$store.commit('addTrips', v)
       }
     }
   },
 
   methods: {
     addTrip(v) {
-      this.trips = v
+      //this.trips = v
     },
 
     deleteTrip(v) {
