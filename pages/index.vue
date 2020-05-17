@@ -3,9 +3,7 @@
     <v-flex xs12 sm8 md6>
 
       <v-row>
-        <TripForm class="col-12"
-          @triggerAddTrip="addTrip"
-        />
+        <TripForm class="col-12" />
 
         <v-col cols="12" v-if="trips">
           <Trip class="mb-10"
@@ -31,19 +29,19 @@ export default {
   },
 
   mounted() {
-    //
-    let getTrips = this.$firebase.database.ref('trips/');
-    getTrips.on('value', (snapshot) => {
-      if (snapshot.val()) {
-        // convert object to an array
-        let data = snapshot.val()
-        let newArr = Object.keys(data).map(key => {
-          return data[key];
-        })
+    this.$firebase.database
+      .ref('trips/')
+      .on('value', (snapshot) => {
+        if (snapshot.val()) {
+          // convert object to an array
+          let data = snapshot.val()
+          let newArr = Object.keys(data).map(key => {
+            return data[key];
+          })
 
-        this.trips = newArr
-      }
-    })
+          this.trips = newArr
+        }
+      })
   },
 
   computed: {
@@ -56,16 +54,6 @@ export default {
       }
     }
   },
-
-  methods: {
-    addTrip(v) {
-      //this.trips = v
-    },
-
-    deleteTrip(v) {
-      // splice from trips
-    },
-  }
 }
 </script>
 

@@ -25,10 +25,17 @@
 
 <script>
 export default {
+  props: ['val'],
   data () {
     return {
       location: '',
       locationResults: null,
+    }
+  },
+
+  mounted() {
+    if (this.val != null || this.val != '') {
+      this.location = this.val
     }
   },
 
@@ -47,6 +54,10 @@ export default {
     setLocation(v) {
       this.location = v.label
       this.$emit('triggerSetLocation', v)
+    },
+
+    clearLocationField() {
+      this.location = '';
     },
   }
 }

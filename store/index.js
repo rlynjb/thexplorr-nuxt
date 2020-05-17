@@ -44,14 +44,6 @@ const createStore = () => {
       addTrip (state, obj) {
         state.trips.unshift(obj)
       },
-
-      updateTrip (state, obj) {
-        //
-      },
-
-      deleteTrip (state, obj) {
-        //
-      },
     },
 
   })

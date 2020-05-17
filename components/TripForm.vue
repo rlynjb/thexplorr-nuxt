@@ -12,7 +12,7 @@
     <v-col cols="1" class="text-center">
       <v-icon v-if="!displayLocation"
         large
-        color="primary" @click="attachLocation">
+        color="primary" @click="displayLocation = true">
         mdi-map-marker-plus
       </v-icon>
       <v-icon v-else
@@ -33,7 +33,7 @@
         mdi-close
       </v-icon>
 
-      <location-search @triggerSetLocation="setLocation" />
+      <location-search ref="locationSearch" :val="null" @triggerSetLocation="setLocation" />
     </v-col>
 
     <v-col cols="12" class="mt-5 text-right">
@@ -60,7 +60,7 @@ export default {
     return {
       displayLocation: false,
       trip: {
-        id: uuidv4(),
+        id: '',
         name: '',
         location: '',
         notes: '',
@@ -75,31 +75,28 @@ export default {
   methods: {
     setLocation(v) {
       this.trip.location = v.label
-      this.locationResults = null
       this.trip.__embedded.location = v
     },
 
     async addTrip() {
       if (this.trip.name === '') return
 
-      this.$emit('triggerAddTrip', this.trip)
+      this.trip.id = uuidv4();
 
       // create trip
       let res = await this.$firebase.database
-        .ref('trips/' + uuidv4())
-        .set(this.trip, (err) => {
+        .ref('trips/' + this.trip.id)
+        .set(this.trip)
+        .then((err) => {
           if (err) {
             console.log('Write ERROR: ', err)
           } else {
             console.log('Success!')
-            this.trip.name = ''
-            this.trip.location = ''
+            this.trip.name = '';
+            this.$refs.locationSearch.clearLocationField();
+            this.displayLocation = false;
           }
-        })
-    },
-
-    attachLocation() {
-      this.displayLocation = true
+        });
     },
   }
 }

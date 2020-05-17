@@ -14,7 +14,7 @@
         mdi-map-marker
       </v-icon>
 
-      <location-search @triggerSetLocation="setLocation" />
+      <location-search :val="dataCopy.location" @triggerSetLocation="setLocation" />
     </v-col>
 
     <v-col cols="12">
@@ -166,24 +166,29 @@ export default {
     },
 
     updateTrip() {
-      // update internal state
-      //this.$store.commit('updateTrip', this.data.id)
-
       // update firebase
       this.$firebase.database
-        .ref('trips/' + this.dataCopy.id)
-        .set(this.dataCopy, (err) => {
-          if (err) {
-            console.log('Failed to update');
-          } else {
-            console.log('Success')
-            this.disabledUpdate = true
-          }
+        .ref('trips/').child(this.dataCopy.id)
+        .update(this.dataCopy)
+        .then(res => {
+          console.log('SUCCESS on update');
+          this.disabledUpdate = false;
+        })
+        .catch(err => {
+          console.log('ERROR on updating')
         })
     },
 
     deleteTrip() {
-      this.$emit('triggerDeleteTrip', this.data)
+      this.$firebase.database
+        .ref('trips/').child(this.dataCopy.id)
+        .set(null)
+        .then(res => {
+          console.log('Delete Success');
+        })
+        .catch(err => {
+          console.log('ERROR on Deleting');
+        })
     },
   }
 }
