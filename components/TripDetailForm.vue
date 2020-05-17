@@ -25,7 +25,7 @@ export default {
   data () {
     return {
       tripDetail: {
-        id: uuidv4(),
+        id: '',
         tripID: '',
         time: '',
         name: '',
@@ -40,14 +40,15 @@ export default {
     addTripDetail() {
       if (this.tripDetail.name === '') return
 
+      this.tripDetail.id = uuidv4()
       this.tripDetail.time = this.time
       this.tripDetail.tripID = this.tripID
       this.$emit('triggerAddTripDetail', this.tripDetail)
+    },
 
-      // NOTE: before removing content
-      // check if value has been saved
-      //this.tripDetail.name = ''
-    }
+    clearTripDetailName() {
+      this.tripDetail.name = '';
+    },
   }
 }
 </script>

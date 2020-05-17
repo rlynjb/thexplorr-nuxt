@@ -16,7 +16,7 @@
       mdi-map-marker
     </v-icon>
 
-    <location-search @triggerSetLocation="setLocation" />
+    <location-search :val="data.location" @triggerSetLocation="setLocation" />
   </v-col>
 
   <v-col cols="11" class="pl-3">

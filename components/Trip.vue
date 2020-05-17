@@ -31,6 +31,7 @@
       >
       </v-textarea>
 
+
       <h5 class="text-uppercase mt-10 ml-3">Day time</h5>
       <v-list>
         <v-list-item class="mb-5 tripDetalItem"
@@ -41,7 +42,7 @@
         </v-list-item>
 
         <v-list-item>
-          <TripDetailForm time="day" :tripID="dataCopy.id"
+          <TripDetailForm ref="tripDetailForm" time="day" :tripID="dataCopy.id"
             @triggerAddTripDetail="addTripDetail"
           />
         </v-list-item>
@@ -125,14 +126,7 @@ export default {
   },
 
   methods: {
-    setLocation(v) {
-      this.dataCopy.location = v.label
-      this.dataCopy.__embedded.location = v
-    },
-
-    setDate(v) {
-      this.dataCopy.date = v
-
+    compareData() {
       if (JSON.stringify(this.dataCopy) != JSON.stringify(this.data)) {
         // update internally in state
         this.disabledUpdate = false
@@ -141,18 +135,43 @@ export default {
 
       this.disabledUpdate = true
     },
+    setLocation(v) {
+      this.dataCopy.location = v.label
+      this.dataCopy.__embedded.location = v
+    },
 
-    addTripDetail(v) {
+    setDate(v) {
+      this.dataCopy.date = v
+      this.compareData()
+    },
+
+    async addTripDetail(v) {
+      let res = null;
+
       switch (v.time) {
         case 'day':
-          this.dataCopy.day_trips.push(v)
+          if (this.dataCopy.day_trips) {
+            res = await this.dataCopy.day_trips.push(v);
+          } else {
+            this.dataCopy.day_trips = [];
+            res = await this.dataCopy.day_trips.push(v);
+          }
           break;
+
         case 'night':
-          this.dataCopy.night_trips.push(v)
+          if (this.dataCopy.night_trips) {
+            this.dataCopy.night_trips.push(v);
+          } else {
+            this.dataCopy.night_trips = [];
+            this.dataCopy.night_trips.push(v);
+          }
           break;
+
         default:
           //
       }
+
+      this.compareData();
     },
 
     deleteTripDetail(v) {
@@ -171,9 +190,12 @@ export default {
       }
 
       i = null
+
+      this.compareData();
     },
 
     updateTrip() {
+      console.log(this.dataCopy)
       // update firebase
       this.$firebase.database
         .ref('trips/').child(this.dataCopy.id)
