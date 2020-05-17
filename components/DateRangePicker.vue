@@ -44,8 +44,8 @@ export default {
   },
 
   mounted() {
-    if (this.val != '' || this.val != null) {
-      this.val = this.date;
+    if (this.val != null) {
+      this.date = this.val;
     }
   },
 

@@ -110,7 +110,6 @@ export default {
   watch: {
     dataCopy: {
       handler (val, old) {
-        console.log('changes detected? ',val)
         // compare data here
         // and set Update btn to either active or inactive
         if (JSON.stringify(val) != JSON.stringify(this.data)) {
@@ -133,6 +132,14 @@ export default {
 
     setDate(v) {
       this.dataCopy.date = v
+
+      if (JSON.stringify(this.dataCopy) != JSON.stringify(this.data)) {
+        // update internally in state
+        this.disabledUpdate = false
+        return
+      }
+
+      this.disabledUpdate = true
     },
 
     addTripDetail(v) {
@@ -173,7 +180,7 @@ export default {
         .update(this.dataCopy)
         .then(res => {
           console.log('SUCCESS on update');
-          this.disabledUpdate = false;
+          this.disabledUpdate = true;
         })
         .catch(err => {
           console.log('ERROR on updating')
