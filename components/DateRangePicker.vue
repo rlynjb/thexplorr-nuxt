@@ -31,7 +31,7 @@
 </template>
 
 <script>
-import moment from 'moment'
+
 export default {
   data () {
     return {
@@ -43,11 +43,11 @@ export default {
   computed: {
     formatDate() {
       if (this.date.length === 1) {
-        return moment(this.date[0]).format('dddd, MMMM Do YYYY')
+        return this.$moment.core(this.date[0]).format('dddd, MMMM Do YYYY')
       }
 
       if (this.date.length === 2) {
-        return moment(this.date[0]).format('dddd, MMMM Do YYYY') + ' - ' + moment(this.date[1]).format('dddd, MMMM Do YYYY')
+        return this.$moment.core(this.date[0]).format('dddd, MMMM Do YYYY') + ' - ' + moment(this.date[1]).format('dddd, MMMM Do YYYY')
       }
     }
   },

@@ -30,7 +30,9 @@ module.exports = {
   ** Plugins to load before mounting the App
   */
   plugins: [
-    { src: '~/plugins/leaflet.js', ssr: false }
+    { src: '~/plugins/leaflet.js', ssr: false },
+    { src: '~/plugins/firebase.js', ssr: false },
+    { src: '~/plugins/moment.js', ssr: false }
   ],
   /*
   ** Nuxt.js dev-modules
