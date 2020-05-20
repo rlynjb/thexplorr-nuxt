@@ -37,6 +37,7 @@
         <v-list-item class="mb-5 tripDetalItem"
           v-for="(item, i) in dataCopy.day_trips" :key="item.id">
           <TripDetail :data="item" :tripID="item.id"
+            @triggerUpdateTripDetail="updateTripDetail"
             @triggerDeleteTripDetail="deleteTripDetail"
           />
         </v-list-item>
@@ -135,6 +136,7 @@ export default {
 
       this.disabledUpdate = true
     },
+
     setLocation(v) {
       this.dataCopy.location = v.label
       this.dataCopy.__embedded.location = v
@@ -145,16 +147,14 @@ export default {
       this.compareData()
     },
 
-    async addTripDetail(v) {
-      let res = null;
-
+    addTripDetail(v) {
       switch (v.time) {
         case 'day':
           if (this.dataCopy.day_trips) {
-            res = await this.dataCopy.day_trips.push(v);
+            this.dataCopy.day_trips.push(v);
           } else {
             this.dataCopy.day_trips = [];
-            res = await this.dataCopy.day_trips.push(v);
+            this.dataCopy.day_trips.push(v);
           }
           break;
 
@@ -170,6 +170,26 @@ export default {
         default:
           //
       }
+
+      this.compareData();
+    },
+
+    updateTripDetail(v) {
+      let i = null
+      switch (v.time) {
+        case 'day':
+          i = this.dataCopy.day_trips.findIndex(val => val.id === v.id)
+          this.dataCopy.day_trips.splice(i, 1, v)
+          break;
+        case 'night':
+          i = this.dataCopy.night_trips.findIndex(val => val.id === v.id)
+          this.dataCopy.night_trips.splice(i, 1, v)
+          break;
+        default:
+          //
+      }
+
+      i = null
 
       this.compareData();
     },

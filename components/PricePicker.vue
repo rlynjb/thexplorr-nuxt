@@ -25,6 +25,12 @@ export default {
     }
   },
 
+  watch: {
+    val() {
+      this.$emit('triggerSetPrice', this.val)
+    },
+  },
+
   methods: {
     increaseVal() {
       if (this.val <= 4) {
