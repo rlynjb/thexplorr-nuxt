@@ -10,6 +10,7 @@
 
   <v-col cols="2" class="text-right">
     <price-picker
+      :val="dataCopy.price"
       @triggerSetPrice="(v) => dataCopy.price = v" />
   </v-col>
 

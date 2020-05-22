@@ -55,12 +55,13 @@
         <v-list-item class="mb-5 tripDetalItem"
           v-for="(item, i) in dataCopy.night_trips" :key="item.id">
           <TripDetail :data="item" :tripID="item.id"
+            @triggerUpdateTripDetail="updateTripDetail"
             @triggerDeleteTripDetail="deleteTripDetail"
           />
         </v-list-item>
 
         <v-list-item>
-          <TripDetailForm time="night" :tripID="dataCopy.id"
+          <TripDetailForm ref="tripDetailForm" time="night" :tripID="dataCopy.id"
             @triggerAddTripDetail="addTripDetail"
           />
         </v-list-item>
@@ -215,7 +216,6 @@ export default {
     },
 
     updateTrip() {
-      console.log(this.dataCopy)
       // update firebase
       this.$firebase.database
         .ref('trips/').child(this.dataCopy.id)

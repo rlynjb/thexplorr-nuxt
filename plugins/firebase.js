@@ -1,5 +1,6 @@
 import Vue from 'vue';
 import * as firebase from 'firebase/app';
+import * as firebaseui from "firebaseui";
 
 import 'firebase/auth';
 import 'firebase/database';
@@ -18,7 +19,9 @@ const firebaseConfig = {
 
 firebase.initializeApp(firebaseConfig)
 
+
 Vue.prototype.$firebase = {
   core: firebase,
   database: firebase.database(),
+  firebaseui,
 };

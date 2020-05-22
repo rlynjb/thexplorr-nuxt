@@ -2,14 +2,14 @@
 <div>
   <div class="full-width" @click="increaseVal">
     <p class="no-padding no-margin">
-      {{ getPriceRange(val) }}
+      {{ getPriceRange(priceVal) }}
     </p>
-    <v-icon v-if="val === 0"
+    <v-icon v-if="priceVal === 0"
       color="grey" size="1.2em">
       mdi-currency-usd
     </v-icon>
 
-    <v-icon v-else v-for="n in val"
+    <v-icon v-else v-for="n in priceVal"
       color="primary" size="1.2em">
       mdi-currency-usd
     </v-icon>
@@ -19,26 +19,33 @@
 
 <script>
 export default {
+  props: ['val'],
   data() {
     return {
-      val: 2,
+      priceVal: 2,
     }
   },
 
+  mounted() {
+    if (this.val === null) return;
+
+    this.priceVal = this.val;
+  },
+
   watch: {
-    val() {
-      this.$emit('triggerSetPrice', this.val)
+    priceVal() {
+      this.$emit('triggerSetPrice', this.priceVal)
     },
   },
 
   methods: {
     increaseVal() {
-      if (this.val <= 4) {
-        this.val++
-        return
+      if (this.priceVal <= 4) {
+        this.priceVal++;
+        return;
       }
 
-      this.val = 0
+      this.priceVal = 0;
     },
 
     getPriceRange(v) {
