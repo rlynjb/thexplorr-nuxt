@@ -1,5 +1,7 @@
 <template>
 <div>
+  <p>Not available yet.</p>
+  <p>If you wished to have an account. Please let the owner know for an explusive access.</p>
   <div id="firebaseui-auth-container">
   </div>
 </div>
@@ -19,9 +21,9 @@ export default {
     }
 
     let uiConfig = {
-      signInSuccessUrl: "/index",
+      signInSuccessUrl: "/",
       signInOptions: [
-        this.$firebase.core.auth.FacebookAuthProvider.PROVIDER_ID
+        this.$firebase.core.auth.EmailAuthProvider.PROVIDER_ID
       ]
     };
 

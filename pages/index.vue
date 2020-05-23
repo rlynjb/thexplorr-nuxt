@@ -29,6 +29,14 @@ export default {
   },
 
   mounted() {
+    // check if user is signed in
+    this.$firebase.core.auth().onAuthStateChanged((user) => {
+      console.log('is user logged in?', user);
+      // TODO:
+      // save user auth data on store or localstorage?
+    });
+
+    // get content
     this.$firebase.database
       .ref('trips/')
       .on('value', (snapshot) => {
