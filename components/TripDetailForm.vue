@@ -1,7 +1,8 @@
 <template>
 <v-row no-gutters class="grey darken-4">
   <v-col cols="11">
-    <v-text-field class="title pa-3" label="Add something fun to do"
+    <v-text-field class="title pa-3"
+      :label="'add a ' + time.toUpperCase() + ' activity'"
       solo
       v-model="tripDetail.name"
     />

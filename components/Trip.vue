@@ -34,7 +34,10 @@
       </v-textarea>
 
 
-      <h5 class="text-uppercase mt-10 ml-3">Day time</h5>
+      <h5 v-if="dataCopy.day_trips"
+        class="text-uppercase mt-10 ml-3">
+        Day time
+      </h5>
       <v-list>
         <v-list-item class="mb-5 tripDetalItem"
           v-for="(item, i) in dataCopy.day_trips" :key="item.id">
@@ -52,7 +55,10 @@
       </v-list>
 
 
-      <h5 class="text-uppercase mt-10 ml-3">Night time</h5>
+      <h5 v-if="dataCopy.night_trips"
+        class="text-uppercase mt-10 ml-3">
+        Night time
+      </h5>
       <v-list>
         <v-list-item class="mb-5 tripDetalItem"
           v-for="(item, i) in dataCopy.night_trips" :key="item.id">

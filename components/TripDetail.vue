@@ -59,6 +59,12 @@ export default {
     }
   },
 
+  computed: {
+    authenticated() {
+      return this.$store.state.authenticated;
+    }
+  },
+
   mounted() {
     this.dataCopy = JSON.parse(JSON.stringify(this.data));
   },
