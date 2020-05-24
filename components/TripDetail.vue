@@ -5,6 +5,7 @@
     <v-text-field class="title"
       label="Name" solo
       v-model="dataCopy.name"
+      :readonly="!authenticated"
     />
   </v-col>
 
@@ -25,11 +26,13 @@
 
   <v-col cols="11" class="pl-3">
     <v-textarea :auto-grow="true" rows="2" solo
-      label="Any other info?" v-model="dataCopy.notes">
+      label="Any other info?" v-model="dataCopy.notes"
+      :readonly="!authenticated"
+    >
     </v-textarea>
   </v-col>
 
-  <v-col cols="1">
+  <v-col cols="1" v-if="authenticated">
     <v-icon color="red" class="float-right"
       @click="deleteTripDetail()">
       mdi-delete

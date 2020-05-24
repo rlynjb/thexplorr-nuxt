@@ -32,6 +32,12 @@ export default {
     this.priceVal = this.val;
   },
 
+  computed: {
+    authenticated() {
+      return this.$store.state.authenticated;
+    },
+  },
+
   watch: {
     priceVal() {
       this.$emit('triggerSetPrice', this.priceVal)
@@ -40,6 +46,8 @@ export default {
 
   methods: {
     increaseVal() {
+      if (!this.authenticated) return;
+
       if (this.priceVal <= 4) {
         this.priceVal++;
         return;

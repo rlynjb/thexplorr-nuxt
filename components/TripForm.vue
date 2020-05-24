@@ -44,6 +44,21 @@
     </v-col>
   </v-row>
 
+  <v-overlay :value="overlay"
+    opacity="0.9"
+    color="black"
+  >
+    <div class="text-center">
+      <h3>
+        Sorry, This feature is not available yet for public.
+      </h3>
+      <h2>Stay tune tho. :)</h2>
+    </div>
+
+    <div class="text-right">
+      <a @click="overlay = false">Cool?</a>
+    </div>
+  </v-overlay>
 </div>
 </template>
 
@@ -58,6 +73,7 @@ export default {
 
   data () {
     return {
+      overlay: false,
       displayLocation: false,
       trip: {
         id: '',
@@ -72,6 +88,12 @@ export default {
     }
   },
 
+  computed: {
+    authenticated() {
+      return this.$store.state.authenticated;
+    },
+  },
+
   methods: {
     setLocation(v) {
       this.trip.location = v.label
@@ -79,6 +101,12 @@ export default {
     },
 
     async addTrip() {
+      if (!this.authenticated) {
+        // tell non member users about its not available
+        this.overlay = true;
+      }
+
+
       if (this.trip.name === '') return
 
       this.trip.id = uuidv4();

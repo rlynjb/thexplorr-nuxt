@@ -7,6 +7,7 @@
         solo
         label="What's your next adventure?"
         v-model="dataCopy.name"
+        :readonly="!authenticated"
       />
 
       <v-icon class="float-left"
@@ -28,6 +29,7 @@
         solo
         label="What are the main awesome things to experience?"
         v-model="dataCopy.notes"
+        :readonly="!authenticated"
       >
       </v-textarea>
 
@@ -42,7 +44,7 @@
           />
         </v-list-item>
 
-        <v-list-item>
+        <v-list-item v-if="authenticated">
           <TripDetailForm ref="tripDetailForm" time="day" :tripID="dataCopy.id"
             @triggerAddTripDetail="addTripDetail"
           />
@@ -60,7 +62,7 @@
           />
         </v-list-item>
 
-        <v-list-item>
+        <v-list-item v-if="authenticated">
           <TripDetailForm ref="tripDetailForm" time="night" :tripID="dataCopy.id"
             @triggerAddTripDetail="addTripDetail"
           />
@@ -68,7 +70,9 @@
       </v-list>
     </v-col>
 
-    <v-col cols="12" class="mt-10 text-right">
+    <v-col cols="12" class="mt-10 text-right"
+      v-if="authenticated"
+    >
       <v-btn :disabled="disabledUpdate"
         color="primary" nuxt @click="updateTrip()">
         Update
@@ -104,6 +108,12 @@ export default {
       dataCopy: null,
       disabledUpdate: true,
     }
+  },
+
+  computed: {
+    authenticated() {
+      return this.$store.state.authenticated;
+    },
   },
 
   mounted() {

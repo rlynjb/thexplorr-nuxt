@@ -8,6 +8,7 @@
         v-model="location"
         @input="getLocationResults"
         v-on="on"
+        :readonly="!authenticated"
       />
     </template>
 
@@ -31,6 +32,12 @@ export default {
       location: '',
       locationResults: null,
     }
+  },
+
+  computed: {
+    authenticated() {
+      return this.$store.state.authenticated;
+    },
   },
 
   mounted() {

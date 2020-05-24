@@ -3,6 +3,7 @@ import Vuex from 'vuex'
 const createStore = () => {
   return new Vuex.Store({
     state: () => ({
+      authenticated: null,
       trips: [
         {
           id: '123asd',

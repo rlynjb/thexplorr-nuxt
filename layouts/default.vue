@@ -26,6 +26,7 @@
       </v-list>
     </v-navigation-drawer>
     -->
+
     <v-app-bar
       :clipped-left="clipped"
       fixed
@@ -52,22 +53,29 @@
         <v-icon>mdi-minus</v-icon>
       </v-btn>
       -->
-      <v-toolbar-title v-text="title" />
-      <!--
-      <v-spacer />
-      <v-btn
-        icon
-        @click.stop="rightDrawer = !rightDrawer"
-      >
-        <v-icon>mdi-menu</v-icon>
-      </v-btn>
-      -->
+
+      <div class="row">
+        <v-toolbar-title class="col-8" v-text="title" />
+
+        <div class="col-4" v-if="authenticated">
+          Welcome {{ authenticated.displayName }}
+
+          <v-btn
+            icon
+            @click.stop="rightDrawer = !rightDrawer"
+          >
+            <v-icon>mdi-menu</v-icon>
+          </v-btn>
+        </div>
+      </div>
     </v-app-bar>
+
     <v-content>
       <v-container>
         <nuxt />
       </v-container>
     </v-content>
+
     <v-navigation-drawer
       v-model="rightDrawer"
       :right="right"
@@ -75,16 +83,28 @@
       fixed
     >
       <v-list>
+        <!--
         <v-list-item @click.native="right = !right">
           <v-list-item-action>
             <v-icon light>
               mdi-repeat
             </v-icon>
           </v-list-item-action>
-          <v-list-item-title>Switch drawer (click me)</v-list-item-title>
+          <v-list-item-title>
+            Switch drawer
+          </v-list-item-title>
+        </v-list-item>
+        -->
+
+        <v-list-item v-if="authenticated">
+          <v-btn @click="logout">Logout</v-btn>
+        </v-list-item>
+        <v-list-item>
+          hello
         </v-list-item>
       </v-list>
     </v-navigation-drawer>
+
     <v-footer
       :fixed="fixed"
       app
@@ -96,6 +116,13 @@
 
 <script>
 export default {
+  mounted() {
+    // check if user is signed in
+    this.$firebase.core.auth().onAuthStateChanged((user) => {
+      if (user) this.$store.state.authenticated = user
+    });
+  },
+
   data () {
     return {
       clipped: false,
@@ -118,7 +145,20 @@ export default {
       rightDrawer: false,
       title: 'thexplorr'
     }
-  }
+  },
+
+  computed: {
+    authenticated() {
+      return this.$store.state.authenticated;
+    }
+  },
+
+  methods: {
+    logout() {
+      this.$firebase.core.auth().signOut();
+      this.rightDrawer = false;
+    },
+  },
 }
 </script>
 

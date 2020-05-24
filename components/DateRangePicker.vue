@@ -13,16 +13,16 @@
     </v-icon>
 
     <v-text-field
-      class="hidden-date-field"
       v-model="formatDate"
-      readonly
+      :readonly="!authenticated"
       solo
       v-on="on"
       label="When?"
     ></v-text-field>
   </template>
 
-  <v-date-picker v-model="date" range no-title scrollable>
+  <v-date-picker v-if="authenticated"
+    v-model="date" range no-title scrollable>
     <v-spacer></v-spacer>
 
     <v-btn text color="primary" @click="menu = false">Cancel</v-btn>
@@ -71,7 +71,11 @@ export default {
         return moment(this.date[0]).format('dddd, MMMM Do YYYY')
           + ' to ' + moment(this.date[1]).format('dddd, MMMM Do YYYY')
       }
-    }
+    },
+
+    authenticated() {
+      return this.$store.state.authenticated;
+    },
   },
 }
 </script>
