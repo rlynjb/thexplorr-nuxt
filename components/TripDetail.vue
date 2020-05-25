@@ -25,7 +25,8 @@
   </v-col>
 
   <v-col cols="11" class="pl-3">
-    <v-textarea :auto-grow="true" rows="2" solo
+    <v-textarea
+      :auto-grow="true" rows="2" solo
       label="Any other info?" v-model="dataCopy.notes"
       :readonly="!authenticated"
     >

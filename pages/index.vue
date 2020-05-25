@@ -5,9 +5,18 @@
       <v-row>
         <TripForm class="col-12" />
 
-        <v-col cols="12" v-if="trips">
+        <v-col cols="12" v-if="trips && authenticated">
           <Trip class="mb-10"
             v-for="(item, i) in trips" :key="item.id"
+            :data="item"
+            @triggerDeleteTrip="deleteTrip"
+          />
+        </v-col>
+
+        <v-col cols="12" v-if="trips && !authenticated">
+          <Trip class="mb-10"
+            v-for="(item, i) in trips" :key="item.id"
+            v-if="item.status === 'public'"
             :data="item"
             @triggerDeleteTrip="deleteTrip"
           />
@@ -53,7 +62,11 @@ export default {
       set(v) {
         this.$store.commit('addTrips', v)
       }
-    }
+    },
+
+    authenticated() {
+      return this.$store.state.authenticated;
+    },
   },
 }
 </script>

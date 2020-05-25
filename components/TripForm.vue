@@ -83,6 +83,7 @@ export default {
         date: [],
         day_trips: [],
         night_trips: [],
+        status: 'private',
         __embedded: {}
       },
     }

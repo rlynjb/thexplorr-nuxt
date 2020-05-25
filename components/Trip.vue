@@ -10,16 +10,17 @@
         :readonly="!authenticated"
       />
 
-      <v-icon class="float-left"
-        color="grey">
+      <v-icon class="float-left" color="grey">
         mdi-map-marker
       </v-icon>
 
-      <location-search :val="dataCopy.location" @triggerSetLocation="setLocation" />
+      <location-search :val="dataCopy.location"
+        @triggerSetLocation="setLocation" />
     </v-col>
 
     <v-col cols="12">
-      <date-range-picker :val="dataCopy.date" @triggerSetDate="setDate" />
+      <date-range-picker :val="dataCopy.date"
+        @triggerSetDate="setDate" />
     </v-col>
 
     <v-col cols="12">
@@ -29,8 +30,7 @@
         solo
         label="What are the main awesome things to experience?"
         v-model="dataCopy.notes"
-        :readonly="!authenticated"
-      >
+        :readonly="!authenticated">
       </v-textarea>
 
 
@@ -48,7 +48,8 @@
         </v-list-item>
 
         <v-list-item v-if="authenticated">
-          <TripDetailForm ref="tripDetailForm" time="day" :tripID="dataCopy.id"
+          <TripDetailForm ref="tripDetailForm" time="day"
+            :tripID="dataCopy.id"
             @triggerAddTripDetail="addTripDetail"
           />
         </v-list-item>
@@ -69,16 +70,22 @@
         </v-list-item>
 
         <v-list-item v-if="authenticated">
-          <TripDetailForm ref="tripDetailForm" time="night" :tripID="dataCopy.id"
+          <TripDetailForm ref="tripDetailForm" time="night"
+            :tripID="dataCopy.id"
             @triggerAddTripDetail="addTripDetail"
           />
         </v-list-item>
       </v-list>
     </v-col>
 
-    <v-col cols="12" class="mt-10 text-right"
-      v-if="authenticated"
-    >
+    <v-col cols="6" v-if="authenticated">
+      <v-btn @click="toggleStatus">
+        {{ dataCopy.status }}
+      </v-btn>
+    </v-col>
+
+    <v-col cols="6" class="mt-10 text-right"
+      v-if="authenticated">
       <v-btn :disabled="disabledUpdate"
         color="primary" nuxt @click="updateTrip()">
         Update
@@ -144,6 +151,10 @@ export default {
   },
 
   methods: {
+    toggleStatus() {
+      this.dataCopy.status = this.dataCopy.status === 'private' ? 'public' : 'private';
+    },
+
     compareData() {
       if (JSON.stringify(this.dataCopy) != JSON.stringify(this.data)) {
         // update internally in state
