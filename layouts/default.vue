@@ -67,6 +67,12 @@
             <v-icon>mdi-menu</v-icon>
           </v-btn>
         </div>
+
+        <div class="col-4 text-right" v-else>
+          <nuxt-link to="/login">
+            Login
+          </nuxt-link>
+        </div>
       </div>
     </v-app-bar>
 
