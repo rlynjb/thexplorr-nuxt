@@ -55,9 +55,9 @@
       -->
 
       <div class="row">
-        <v-toolbar-title class="col-8" v-text="title" />
+        <v-toolbar-title class="col-7" v-text="title" />
 
-        <div class="col-4" v-if="authenticated">
+        <div class="col-5 text-right" v-if="authenticated">
           Welcome {{ authenticated.displayName }}
 
           <v-btn
@@ -68,7 +68,7 @@
           </v-btn>
         </div>
 
-        <div class="col-4 text-right" v-else>
+        <div class="col-5 text-right" v-else>
           <nuxt-link to="/login">
             Login
           </nuxt-link>

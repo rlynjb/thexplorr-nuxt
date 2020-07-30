@@ -78,9 +78,16 @@
       </v-list>
     </v-col>
 
-    <v-col cols="6" v-if="authenticated">
-      <v-btn @click="toggleStatus">
+    <v-col cols="6" class="mt-10"
+      v-if="authenticated">
+      <v-btn v-if="dataCopy.status"
+        @click="toggleStatus">
         {{ dataCopy.status }}
+      </v-btn>
+
+      <v-btn v-else
+        @click="setStatus">
+        set status to Private or Public
       </v-btn>
     </v-col>
 
@@ -131,6 +138,11 @@ export default {
 
   mounted() {
     this.dataCopy = JSON.parse(JSON.stringify(this.data))
+
+    // set property if its required and needs to have a default value
+    /*if (!this.dataCopy.status) {
+      this.dataCopy.status = 'private';
+    }*/
   },
 
   watch: {
@@ -151,6 +163,10 @@ export default {
   },
 
   methods: {
+    setStatus() {
+      this.dataCopy.status = 'private';
+      console.log('KIRBY', this.dataCopy)
+    },
     toggleStatus() {
       this.dataCopy.status = this.dataCopy.status === 'private' ? 'public' : 'private';
     },
