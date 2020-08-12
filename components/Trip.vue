@@ -1,6 +1,7 @@
 <template>
 <div class="trip-card mb-8">
-  <v-row v-if="dataCopy" no-gutters>
+  <v-row v-if="dataCopy" no-gutters
+    :class="disabledUpdate ? '' : 'blue-grey darken-4'">
     <v-col cols="12">
       <v-text-field
         class="display-2"
@@ -312,5 +313,6 @@ export default {
   max-height: fit-content;
   padding: 0;
 }
+
 
 </style>
