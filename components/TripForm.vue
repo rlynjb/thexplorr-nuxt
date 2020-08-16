@@ -44,6 +44,17 @@
     </v-col>
   </v-row>
 
+
+  <v-snackbar v-model="overlayAlert"
+    timeout="5000"
+    bottom="true"
+    centered="true"
+    color="primary"
+  >
+    <h5>Successfully created a Trip</h5>
+  </v-snackbar>
+
+
   <v-overlay :value="overlay"
     opacity="0.9"
     color="black"
@@ -74,6 +85,7 @@ export default {
   data () {
     return {
       overlay: false,
+      overlayAlert: false,
       displayLocation: false,
       trip: {
         id: '',
@@ -122,8 +134,10 @@ export default {
           } else {
             console.log('Success!')
             this.trip.name = '';
-            this.$refs.locationSearch.clearLocationField();
             this.displayLocation = false;
+            this.overlayAlert = true;
+
+            this.$refs.locationSearch.clearLocationField();
           }
         });
     },
