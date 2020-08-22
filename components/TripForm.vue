@@ -45,13 +45,13 @@
   </v-row>
 
 
-  <v-snackbar v-model="overlayAlert"
+  <v-snackbar v-model="notificationMsg"
     timeout="5000"
     bottom="true"
     centered="true"
     color="primary"
   >
-    <h5>Successfully created a Trip</h5>
+    <h4>Successfully created a Trip</h4>
   </v-snackbar>
 
 
@@ -85,7 +85,7 @@ export default {
   data () {
     return {
       overlay: false,
-      overlayAlert: false,
+      notificationMsg: false,
       displayLocation: false,
       trip: {
         id: '',
@@ -125,7 +125,7 @@ export default {
       this.trip.id = uuidv4();
 
       // create trip
-      let res = await this.$firebase.database
+      await this.$firebase.database
         .ref('trips/' + this.trip.id)
         .set(this.trip)
         .then((err) => {
@@ -135,7 +135,7 @@ export default {
             console.log('Success!')
             this.trip.name = '';
             this.displayLocation = false;
-            this.overlayAlert = true;
+            this.notificationMsg = true;
 
             this.$refs.locationSearch.clearLocationField();
           }

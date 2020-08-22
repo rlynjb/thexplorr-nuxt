@@ -106,6 +106,16 @@
     </v-col>
   </v-row>
 
+
+  <v-snackbar v-model="notificationMsg"
+    timeout="5000"
+    bottom="true"
+    centered="true"
+    color="primary"
+  >
+    <h4>Deleted a Trip</h4>
+  </v-snackbar>
+
 </div>
 </template>
 
@@ -128,6 +138,7 @@ export default {
     return {
       dataCopy: null,
       disabledUpdate: true,
+      notificationMsg: false,
     }
   },
 
@@ -273,16 +284,19 @@ export default {
         })
     },
 
-    deleteTrip() {
-      this.$firebase.database
+    async deleteTrip() {
+      await this.$firebase.database
         .ref('trips/').child(this.dataCopy.id)
         .set(null)
-        .then(res => {
-          console.log('Delete Success');
-        })
-        .catch(err => {
-          console.log('ERROR on Deleting');
-        })
+        .then((err) => {
+          if (err) {
+            console.log('theres an error in deleting')
+          } else {
+            console.log('Delete Success :)');
+
+            this.notificationMsg = true;
+          }
+        });
     },
   }
 }
