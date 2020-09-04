@@ -44,11 +44,11 @@ export default {
       this.tripDetail.id = uuidv4()
       this.tripDetail.time = this.time
       this.tripDetail.tripID = this.tripID
-      this.$emit('triggerAddTripDetail', this.tripDetail)
-    },
+      this.$emit('triggerAddTripDetail', this.tripDetail);
 
-    clearTripDetailName() {
-      this.tripDetail.name = '';
+      window.setTimeout(() => {
+        this.tripDetail.name = '';
+      }, 500);
     },
   }
 }

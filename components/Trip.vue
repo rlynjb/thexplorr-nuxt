@@ -49,7 +49,7 @@
         </v-list-item>
 
         <v-list-item v-if="authenticated">
-          <TripDetailForm ref="tripDetailForm" time="day"
+          <TripDetailForm time="day"
             :tripID="dataCopy.id"
             @triggerAddTripDetail="addTripDetail"
           />
@@ -71,7 +71,7 @@
         </v-list-item>
 
         <v-list-item v-if="authenticated">
-          <TripDetailForm ref="tripDetailForm" time="night"
+          <TripDetailForm time="night"
             :tripID="dataCopy.id"
             @triggerAddTripDetail="addTripDetail"
           />
@@ -104,17 +104,17 @@
         Delete
       </v-btn>
     </v-col>
+
+    <v-snackbar v-model="notificationMsg"
+      timeout="5000"
+      bottom="true"
+      centered="true"
+      color="primary"
+    >
+      <h4>Deleted a Trip</h4>
+    </v-snackbar>
+
   </v-row>
-
-
-  <v-snackbar v-model="notificationMsg"
-    timeout="5000"
-    bottom="true"
-    centered="true"
-    color="primary"
-  >
-    <h4>Deleted a Trip</h4>
-  </v-snackbar>
 
 </div>
 </template>
