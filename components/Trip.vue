@@ -85,11 +85,6 @@
         @click="toggleStatus">
         {{ dataCopy.status }}
       </v-btn>
-
-      <v-btn v-else
-        @click="setStatus">
-        set status to Private or Public
-      </v-btn>
     </v-col>
 
     <v-col cols="6" class="mt-10 text-right"
@@ -175,10 +170,6 @@ export default {
   },
 
   methods: {
-    setStatus() {
-      this.dataCopy.status = 'private';
-      console.log('KIRBY', this.dataCopy)
-    },
     toggleStatus() {
       this.dataCopy.status = this.dataCopy.status === 'private' ? 'public' : 'private';
     },
