@@ -5,6 +5,8 @@
       <v-row>
         <TripForm class="col-12" />
 
+        <Map class="col-12" />
+
         <v-col cols="12" v-if="trips && authenticated">
           <Trip class="mb-10"
             v-for="(item, i) in trips" :key="item.id"
@@ -30,11 +32,13 @@
 <script>
 import Trip from '~/components/Trip.vue'
 import TripForm from '~/components/TripForm.vue'
+import Map from '~/components/Map.vue';
 
 export default {
   components: {
     Trip,
-    TripForm
+    TripForm,
+    Map
   },
 
   mounted() {
